@@ -1,0 +1,151 @@
+<div class="row mt-5">
+  <form [formGroup]="demandeurForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <!-- Première colonne -->
+      <div class="col col-md-6">
+        <div class="mb-3 row">
+          <label for="nom" class="col-sm-4 col-form-label">Nom</label>
+          <div class="col-sm-8">
+            <input
+              formControlName="nom"
+              type="text"
+              class="form-control"
+              id="nom"
+            />
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <label for="prenom" class="col-sm-4 col-form-label">Prénom</label>
+          <div class="col-sm-8">
+            <input
+              formControlName="prenom"
+              type="text"
+              class="form-control"
+              id="prenom"
+            />
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <label for="emailDemandeur" class="col-sm-4 col-form-label"
+            >Email</label
+          >
+          <div class="col-sm-8">
+            <input
+              formControlName="emailDemandeur"
+              type="email"
+              class="form-control"
+              id="emailDemandeur"
+            />
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <label for="datenaisDemandeur" class="col-sm-4 col-form-label"
+            >Date Naiss</label
+          >
+          <div class="col-sm-8">
+            <input
+              formControlName="datenaisDemandeur"
+              type="date"
+              class="form-control"
+              id="datenaisDemandeur"
+            />
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <label for="genreDemandeur" class="col-sm-4 col-form-label"
+            >Genre</label
+          >
+          <div class="col-sm-8">
+            <select
+              formControlName="genreDemandeur"
+              class="form-control"
+              id="genreDemandeur"
+            >
+              <option value="masculin">Masculin</option>
+              <option value="feminin">Féminin</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Deuxième colonne -->
+      <div class="col col-md-6">
+        <div class="mb-3 row">
+          <label for="telephone1Demandeur" class="col-sm-4 col-form-label"
+            >Téléphone</label
+          >
+          <div class="col-sm-8">
+            <input
+              formControlName="telephone1Demandeur"
+              type="text"
+              class="form-control"
+              id="telephone1Demandeur"
+            />
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <label for="lieuResidenceDemandeur" class="col-sm-4 col-form-label"
+            >Lieu résidence</label
+          >
+          <div class="col-sm-8">
+            <input
+              formControlName="lieuResidenceDemandeur"
+              type="text"
+              class="form-control"
+              id="lieuResidenceDemandeur"
+            />
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <label for="typePieceDemandeur" class="col-sm-4 col-form-label"
+            >Type pièce</label
+          >
+          <div class="col-sm-8">
+            <select
+              formControlName="typePieceDemandeur"
+              class="form-control"
+              id="typePieceDemandeur"
+            >
+              <option value="cnib">CNIB</option>
+              <option value="passport">Passport</option>
+            </select>
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <label for="numPieceDemandeur" class="col-sm-4 col-form-label"
+            >Numéro pièce</label
+          >
+          <div class="col-sm-8">
+            <input
+              formControlName="numPieceDemandeur"
+              type="text"
+              class="form-control"
+              id="numPieceDemandeur"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Boutons -->
+    <div class="row">
+      <div class="mb-3 col-md-6"></div>
+      <div class="mb-3 col-md-6 text-end">
+        <button
+          class="btn btn-success"
+          type="button"
+          (click)="onSubmit()"
+          [disabled]="demandeurForm.invalid"
+          cdkStepperNext
+        >
+          Suivant <i class="bi bi-arrow-right"></i>
+        </button>
+      </div>
+    </div>
+  </form>
+
+  <!-- Message de succès si le formulaire est valide -->
+  <div *ngIf="formValide" class="alert alert-success mt-3">
+    Formulaire Valide
+  </div>
+</div>

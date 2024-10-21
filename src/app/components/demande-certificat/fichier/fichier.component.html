@@ -1,0 +1,150 @@
+<div class="row mt-5">
+  <form [formGroup]="fichierForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <!-- Première colonne -->
+      <div class="col col-md-6">
+        <div class="mb-3 row">
+          <label for="demande" class="col-sm-4 col-form-label">
+            Demande timbrée <span class="text-red-500">*</span>
+          </label>
+          <div class="col-sm-8">
+            <input
+              formControlName="demande"
+              type="file"
+              class="form-control"
+              id="demande"
+              (change)="onFileSelect($event, 'demande')"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3 row">
+          <label for="cnib" class="col-sm-4 col-form-label">
+            Document d'Identité <span class="text-red-500">*</span>
+          </label>
+          <div class="col-sm-8">
+            <input
+              formControlName="cnib"
+              type="file"
+              class="form-control"
+              id="cnib"
+              (change)="onFileSelect($event, 'cnib')"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3 row">
+          <label for="reconnaissance" class="col-sm-4 col-form-label">
+            Document Personne Morale <span class="text-red-500">*</span>
+          </label>
+          <div class="col-sm-8">
+            <input
+              formControlName="reconnaissance"
+              type="file"
+              class="form-control"
+              id="reconnaissance"
+              (change)="onFileSelect($event, 'reconnaissance')"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3 row">
+          <label for="infrastructure" class="col-sm-4 col-form-label">
+            Description des Infrastructures <span class="text-red-500">*</span>
+          </label>
+          <div class="col-sm-8">
+            <input
+              formControlName="infrastructure"
+              type="file"
+              class="form-control"
+              id="infrastructure"
+              (change)="onFileSelect($event, 'infrastructure')"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3 row">
+          <label for="avis" class="col-sm-4 col-form-label">
+            Avis environnemental <span class="text-red-500">*</span>
+          </label>
+          <div class="col-sm-8">
+            <input
+              formControlName="avis"
+              type="file"
+              class="form-control"
+              id="avis"
+              (change)="onFileSelect($event, 'avis')"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Deuxième colonne -->
+      <div class="col col-md-6">
+        <div class="mb-3 row">
+          <label for="titreTerrain" class="col-sm-4 col-form-label">
+            Titre d'occupation de Terrain <span class="text-red-500">*</span>
+          </label>
+          <div class="col-sm-8">
+            <input
+              formControlName="titreTerrain"
+              type="file"
+              class="form-control"
+              id="titreTerrain"
+              (change)="onFileSelect($event, 'titreTerrain')"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3 row">
+          <label for="planEtablissement" class="col-sm-4 col-form-label">
+            Plan de l'Établissement <span class="text-red-500">*</span>
+          </label>
+          <div class="col-sm-8">
+            <input
+              formControlName="planEtablissement"
+              type="file"
+              class="form-control"
+              id="planEtablissement"
+              (change)="onFileSelect($event, 'planEtablissement')"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3 row">
+          <label for="quittances" class="col-sm-4 col-form-label">
+            Quittances de versement <span class="text-red-500">*</span>
+          </label>
+          <div class="col-sm-8">
+            <input
+              formControlName="quittances"
+              type="file"
+              class="form-control"
+              id="quittances"
+              (change)="onFileSelect($event, 'quitance')"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Boutons de navigation -->
+    <div class="row">
+      <div class="mb-3 col-md-6">
+        <button class="btn btn-danger" type="button" cdkStepperPrevious>
+          <i class="bi bi-arrow-left"></i> Précédent
+        </button>
+      </div>
+      <div class="mb-3 col-md-6 text-end">
+        <button
+          class="btn btn-success"
+          type="submit"
+          [disabled]="fichierForm.invalid"
+          cdkStepperNext
+        >
+          Sauvegarder <i class="bi bi-arrow-right"></i>
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

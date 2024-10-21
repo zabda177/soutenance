@@ -1,0 +1,108 @@
+<div class="row mt-5">
+  <form [formGroup]="personneMoraleForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <!-- Première colonne -->
+      <div class="col col-md-6">
+        <div class="mb-3 row">
+          <label for="ifu" class="col-sm-4 col-form-label">N° IFU </label>
+          <div class="col-sm-8">
+            <input
+              formControlName="ifu"
+              type="text"
+              class="form-control"
+              id="ifu"
+              placeholder=" Association: Entrer le Recepissé"
+            />
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <label for="Denomination" class="col-sm-4 col-form-label"
+            >Denomination
+          </label>
+          <div class="col-sm-8">
+            <input
+              formControlName="denomination"
+              type="text"
+              class="form-control"
+              id="denomination"
+            />
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <label for="nomResponsable" class="col-sm-4 col-form-label">
+            Responsable</label
+          >
+          <div class="col-sm-8">
+            <input
+              formControlName="telephone2Demandeur"
+              type="text"
+              class="form-control"
+              id="telephone2Demandeur"
+              placeholder=" Nom et  Prenom du Responsable"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3 row">
+          <label for="siege" class="col-sm-4 col-form-label"
+            >Siège Socialle
+          </label>
+          <div class="col-sm-8">
+            <input
+              formControlName="siege"
+              type="text"
+              class="form-control"
+              id="prenom"
+            />
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <label for="emailDemandeur" class="col-sm-4 col-form-label"
+            >Email</label
+          >
+          <div class="col-sm-8">
+            <input
+              formControlName="emailDemandeur"
+              type="email"
+              class="form-control"
+              id="emailDemandeur"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="col col-md-6">
+        <div class="mb-3 row">
+          <label for="telephone1Demandeur" class="col-sm-4 col-form-label"
+            >Téléphone 1</label
+          >
+          <div class="col-sm-8">
+            <input
+              formControlName="telephone1Demandeur"
+              type="text"
+              class="form-control"
+              id="telephone1Demandeur"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Boutons -->
+    <div class="row">
+      <div class="mb-3 col-md-6"></div>
+      <div class="mb-3 col-md-6 text-end">
+        <button
+          class="btn btn-success"
+          type="button"
+          (click)="onSubmit()"
+          [disabled]="personneMoraleForm.invalid"
+          cdkStepperNext
+        >
+          Suivant <i class="bi bi-arrow-right"></i>
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+<!-- Message de succès si le formulaire est valide -->
+<div *ngIf="formValide" class="alert alert-success mt-3">Formulaire Valide</div>
