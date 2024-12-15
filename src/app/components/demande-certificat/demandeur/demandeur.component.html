@@ -26,41 +26,55 @@
           </div>
         </div>
         <div class="mb-3 row">
-          <label for="emailDemandeur" class="col-sm-4 col-form-label"
-            >Email</label
+          <label for="typeDemande" class="col-sm-4 col-form-label"
+            >Type de Demande</label
           >
           <div class="col-sm-8">
+            <select
+              formControlName="typeDemande"
+              class="form-control"
+              id="typeDemande"
+            >
+              <option value="">Sélectionner le type de fichier</option>
+              <option value="licenceGuide">Licence Guide</option>
+              <option value="etablissement">Création d'un Établissement</option>
+              <option value="permiPeche">Permis de Pêche</option>
+              <option value="licenceCommerciale">Licence Commerciale</option>
+              <option value="agrementConcession">
+                Agréments et Concessions
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="mb-3 row">
+          <label for="mail" class="col-sm-4 col-form-label">Email</label>
+          <div class="col-sm-8">
             <input
-              formControlName="emailDemandeur"
+              formControlName="mail"
               type="email"
               class="form-control"
-              id="emailDemandeur"
+              id="mail"
             />
           </div>
         </div>
         <div class="mb-3 row">
-          <label for="datenaisDemandeur" class="col-sm-4 col-form-label"
+          <label for="dateNaisse" class="col-sm-4 col-form-label"
             >Date Naiss</label
           >
           <div class="col-sm-8">
             <input
-              formControlName="datenaisDemandeur"
+              formControlName="dateNaisse"
               type="date"
               class="form-control"
-              id="datenaisDemandeur"
+              id="dateNaisse"
             />
           </div>
         </div>
         <div class="mb-3 row">
-          <label for="genreDemandeur" class="col-sm-4 col-form-label"
-            >Genre</label
-          >
+          <label for="genre" class="col-sm-4 col-form-label">Genre</label>
           <div class="col-sm-8">
-            <select
-              formControlName="genreDemandeur"
-              class="form-control"
-              id="genreDemandeur"
-            >
+            <select formControlName="genre" class="form-control" id="genre">
               <option value="masculin">Masculin</option>
               <option value="feminin">Féminin</option>
             </select>
@@ -71,40 +85,54 @@
       <!-- Deuxième colonne -->
       <div class="col col-md-6">
         <div class="mb-3 row">
-          <label for="telephone1Demandeur" class="col-sm-4 col-form-label"
-            >Téléphone</label
+          <label for="telephone1" class="col-sm-4 col-form-label"
+            >Téléphone1</label
           >
           <div class="col-sm-8">
             <input
-              formControlName="telephone1Demandeur"
+              formControlName="telephone1"
               type="text"
               class="form-control"
-              id="telephone1Demandeur"
+              id="telephone1"
             />
           </div>
         </div>
         <div class="mb-3 row">
-          <label for="lieuResidenceDemandeur" class="col-sm-4 col-form-label"
+          <label for="telephone2" class="col-sm-4 col-form-label"
+            >Téléphone2</label
+          >
+          <div class="col-sm-8">
+            <input
+              formControlName="telephone2"
+              type="text"
+              class="form-control"
+              id="telephone2"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3 row">
+          <label for="lieuResidence" class="col-sm-4 col-form-label"
             >Lieu résidence</label
           >
           <div class="col-sm-8">
             <input
-              formControlName="lieuResidenceDemandeur"
+              formControlName="lieuResidence"
               type="text"
               class="form-control"
-              id="lieuResidenceDemandeur"
+              id="lieuResidence"
             />
           </div>
         </div>
         <div class="mb-3 row">
-          <label for="typePieceDemandeur" class="col-sm-4 col-form-label"
+          <label for="typePiece" class="col-sm-4 col-form-label"
             >Type pièce</label
           >
           <div class="col-sm-8">
             <select
-              formControlName="typePieceDemandeur"
+              formControlName="typePiece"
               class="form-control"
-              id="typePieceDemandeur"
+              id="typePiece"
             >
               <option value="cnib">CNIB</option>
               <option value="passport">Passport</option>
@@ -112,15 +140,15 @@
           </div>
         </div>
         <div class="mb-3 row">
-          <label for="numPieceDemandeur" class="col-sm-4 col-form-label"
+          <label for="numPiece" class="col-sm-4 col-form-label"
             >Numéro pièce</label
           >
           <div class="col-sm-8">
             <input
-              formControlName="numPieceDemandeur"
+              formControlName="numPiece"
               type="text"
               class="form-control"
-              id="numPieceDemandeur"
+              id="numPiece"
             />
           </div>
         </div>

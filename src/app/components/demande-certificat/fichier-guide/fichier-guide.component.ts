@@ -1,4 +1,3 @@
-import { LicenceGuide } from './../model/licence-guide';
 /**
  * @description      :
  * @author           : ASUS
@@ -44,89 +43,81 @@ export class FichierGuideComponent {
   certificatNationaliteFile: File | null = null;
   listeEquipementFile: File | null = null;
   photoFile: File | null = null;
-  quittancesFile: File | null = null;
-  messageService: any;
-
-  constructor() {
-    this.fichierForm = new FormGroup({
-      demande: new FormControl('', Validators.required),
-      cnib: new FormControl('', Validators.required),
-      reconnaissance: new FormControl('', Validators.required),
-      certificatNationalite: new FormControl('', Validators.required),
-      listeEquipement: new FormControl('', Validators.required),
-      photo: new FormControl('', Validators.required),
-      quittances: new FormControl('', Validators.required),
-    });
-  }
+  quittanceFile: File | null = null;
 
   @Output() LicenceGuideSubmitted = new EventEmitter<FormData>();
-  onSubmit(): void {
-    if (this.fichierForm.valid) {
-      this.formValide = true; // Active le message de succès
-      console.log('Formulaire validé');
-    } else {
-      this.formValide = false; // Désactive le message si formulaire invalide
-      this.fichierForm.markAllAsTouched(); // Marque tous les champs comme "touchés"
-      console.log('Le formulaire est invalide');
+  constructor() {}
+
+  onFileSave() {
+    //ajout de conditions
+    if (this.demandeFile == null) {
+      alert('Veuillez renseigné la demande');
+      return;
+    } else if (this.cnibFile == null) {
+      alert('Veuillez charger la CNIB');
+      return;
+    } else if (this.certificatNationaliteFile == null) {
+      alert('Veuillez chargée le certificat de Nationalité');
+      return;
+    } else if (this.reconnaissanceFile == null) {
+      alert('charger le document de reconnaissance');
+      return;
+    } else if (this.listeEquipementFile == null) {
+      alert('Charger laa liste des equipements');
+      return;
+    } else if (this.photoFile == null) {
+      alert('Veuillez charger la photo');
+      return;
+    } else if (this.quittanceFile == null) {
+      alert('Veuillez charger la quitance');
+      return;
     }
 
-    //ajout de conditions
-    if (this.fichierForm.valid) {
-      const formData = new FormData();
-      /* formData.append('annee', this.fichierForm.get('annee')?.value); */
-      if (this.demandeFile) {
-        formData.append('demande', this.demandeFile);
-      } else {
-        alert('Veuillez charger votre demande manuscrite');
-        return;
-      }
-      if (this.cnibFile) {
-        formData.append('cnib', this.cnibFile);
-      } else {
-        alert('Veuillez charger votre CNIB');
-        return;
-      }
-      if (this.reconnaissanceFile) {
-        formData.append('reconnaissance', this.reconnaissanceFile);
-      } else {
-        alert('Veuillez charger votre document de reconnaisssance');
-        return;
-      }
-      if (this.certificatNationaliteFile) {
-        formData.append(
-          'certificatNationalite',
-          this.certificatNationaliteFile
-        );
-      } else {
-        alert('Veuillez charger votre certificat Nationnalité');
-        return;
-      }
-      if (this.listeEquipementFile) {
-        formData.append('listeEquipement', this.listeEquipementFile);
-      } else {
-        alert('Veuillez charger la liste des equipents ');
-        return;
-      }
-      if (this.photoFile) {
-        formData.append('photo', this.photoFile);
-      } else {
-        alert('Veuillez charger le fichier de photo');
-        return;
-      }
-      if (this.quittancesFile) {
-        formData.append('quitance', this.quittancesFile);
-      } else {
-        alert('Veuillez charger la quitance');
-        return;
-      }
-      this.LicenceGuideSubmitted.emit(formData);
+    const formData = new FormData();
+    /* formData.append('annee', this.fichierForm.get('annee')?.value); */
+    if (this.demandeFile) {
+      formData.append('demande', this.demandeFile);
     } else {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Erreur',
-        detail: 'Veuillez remplir tous les champs obligatoires.',
-      });
+      alert('Veuillez charger votre demande manuscrite');
+      return;
     }
+    if (this.cnibFile) {
+      formData.append('cnib', this.cnibFile);
+    } else {
+      alert('Veuillez charger votre CNIB');
+      return;
+    }
+    if (this.reconnaissanceFile) {
+      formData.append('reconnaissance', this.reconnaissanceFile);
+    } else {
+      alert('Veuillez charger votre document de reconnaisssance');
+      return;
+    }
+    if (this.certificatNationaliteFile) {
+      formData.append('certificatNationalite', this.certificatNationaliteFile);
+    } else {
+      alert('Veuillez charger votre certificat Nationnalité');
+      return;
+    }
+    if (this.listeEquipementFile) {
+      formData.append('listeEquipement', this.listeEquipementFile);
+    } else {
+      alert('Veuillez charger la liste des equipents ');
+      return;
+    }
+    if (this.photoFile) {
+      formData.append('photo', this.photoFile);
+    } else {
+      alert('Veuillez charger le fichier de photo');
+      return;
+    }
+    if (this.quittanceFile) {
+      formData.append('quitance', this.quittanceFile);
+    } else {
+      alert('Veuillez charger la quittance');
+      return;
+    }
+    this.LicenceGuideSubmitted.emit(formData);
   }
 
   onTypeDemandeurChange(event: Event) {
@@ -150,14 +141,14 @@ export class FichierGuideComponent {
         case 'certificatNationalite':
           this.certificatNationaliteFile = file;
           break;
-        case 'listeEquiment':
+        case 'listeEquipement':
           this.listeEquipementFile = file;
           break;
         case 'photo':
           this.photoFile = file;
           break;
-        case 'quitance':
-          this.quittancesFile = file;
+        case 'quittance':
+          this.quittanceFile = file;
           break;
       }
     }

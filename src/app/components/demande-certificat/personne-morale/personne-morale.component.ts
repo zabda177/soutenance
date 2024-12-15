@@ -14,6 +14,7 @@ import { CommonModule } from '@angular/common';
 import { CdkStepperModule, CdkStepperNext } from '@angular/cdk/stepper';
 import { Component, EventEmitter, Output } from '@angular/core';
 import {
+  FormBuilder,
   FormControl,
   FormGroup,
   ReactiveFormsModule,
@@ -35,25 +36,37 @@ import {
 export class PersonneMoraleComponent {
   personneMoraleForm!: FormGroup;
   typePersonneMorale: string = '';
-  constructor() {
-    this.personneMoraleForm = new FormGroup({
-      ifu: new FormControl('', Validators.required),
-      denomination: new FormControl('', Validators.required),
-      siege: new FormControl('', Validators.required),
-      emailDemandeur: new FormControl('', Validators.required),
-      telephone1Demandeur: new FormControl('', Validators.required),
-      telephone2Demandeur: new FormControl('', Validators.required),
-    });
-  }
 
   @Output() personneMoraleEvent: EventEmitter<any> = new EventEmitter<any>();
   ngOnInit(): void {}
+
+  @Output() typeDemandeChange = new EventEmitter<string>();
+
+  constructor(private fb: FormBuilder) {
+    this.personneMoraleForm = this.fb.group({
+      ifu: [''],
+      typeDemande: [''],
+      denomination: [''],
+      nomResponsable: [''],
+      siege: [''],
+      mail: [''],
+      telephone1: [''],
+      telephone2: [''],
+    });
+
+    // Écoutez les changements sur le champ typeDemande
+    this.personneMoraleForm
+      .get('typeDemande')
+      ?.valueChanges.subscribe((value) => {
+        this.typeDemandeChange.emit(value); // Émet la nouvelle valeur
+      });
+  }
 
   formValide: boolean = false;
   onSubmit(): void {
     if (this.personneMoraleForm.valid) {
       this.formValide = true; // Active le message de succès
-      this.personneMoraleEvent.emit(this.personneMoraleForm);
+      this.personneMoraleEvent.emit(this.personneMoraleForm.value);
     } else {
       this.formValide = false; // Désactive le message si formulaire invalide
       this.personneMoraleForm.markAllAsTouched(); // Marque tous les champs comme "touchés"

@@ -1,0 +1,46 @@
+<div class="row">
+  <div class="col-2">
+    <app-menu></app-menu>
+  </div>
+  <div class="col-8">
+    <br /><br /><br />
+    <h2>Liste des demandes</h2>
+    <table class="table">
+      <thead class="table-dark">
+        <tr>
+          <th>N° ID</th>
+          <th> Type de Demande</th>
+          <th>Nom du Responsoble</th>
+          <th>Denomination</th>
+          <th>Siège Sociale</th>
+          <th>Email</th>
+          <th>Téléphone1</th>
+          <th>Téléphone2</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr></tr>
+        <tr *ngFor="let demande of demandes">
+          <td>{{ demande.id }}</td>
+          <td>{{ demande.categorie}}</td>
+          <td>{{ demande.nomResponsable }}</td>
+          <td>{{ demande.denomination }}</td>
+          <td>{{ demande.siege }}</td>
+          <td>{{ demande.mail }}</td>
+          <td>{{ demande.telephone1 }}</td>
+          <td>{{ demande.telephone2 }}</td>
+          <td>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              type="button"
+              (click)="afficherDetails(demande)"
+            >
+              Détails
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

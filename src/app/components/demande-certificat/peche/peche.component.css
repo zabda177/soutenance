@@ -1,8 +1,0 @@
-.align-right {
-  display: flex;
-  justify-content: flex-end; /* Aligne le contenu à droite */
-}
-
-.align-right label {
-  margin-right: 10px; /* Espacement entre le label et le select */
-}

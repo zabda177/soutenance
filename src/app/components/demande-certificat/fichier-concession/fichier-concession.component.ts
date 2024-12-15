@@ -43,86 +43,81 @@ export class FichierConcessionComponent {
   listeMembreFile: File | null = null;
   engagementFile: File | null = null;
   photoFile: File | null = null;
-  quitanceFile: File | null = null;
-  messageService: any;
+  quittanceFile: File | null = null;
 
-  constructor() {
-    this.fichierForm = new FormGroup({
-      demande: new FormControl('', Validators.required),
-      cnib: new FormControl('', Validators.required),
-      reconnaissance: new FormControl('', Validators.required),
-      listeMembre: new FormControl('', Validators.required),
-      engagement: new FormControl('', Validators.required),
-      photo: new FormControl('', Validators.required),
-      quittances: new FormControl('', Validators.required),
-    });
-  }
   @Output() permisConcessionSubmitted = new EventEmitter<FormData>();
 
-  onSubmit(): void {
-    if (this.fichierForm.valid) {
-      this.formValide = true; // Active le message de succès
-      console.log('Formulaire validé');
-    } else {
-      this.formValide = false; // Désactive le message si formulaire invalide
-      this.fichierForm.markAllAsTouched(); // Marque tous les champs comme "touchés"
-      console.log('Le formulaire est invalide');
+  constructor() {}
+  onFileSave() {
+    if (this.demandeFile == null) {
+      alert('Veuillez renseigné la demande');
+      return;
+    } else if (this.cnibFile == null) {
+      alert('Veuillez charger la CNIB');
+      return;
+    } else if (this.reconnaissanceFile == null) {
+      alert('Veuillez chargée le document de reconnaisance');
+      return;
+    } else if (this.listeMembreFile == null) {
+      alert('Veuillez chargée la liste des membres');
+      return;
+    } else if (this.engagementFile == null) {
+      alert('Veuillez chargée lengagement');
+      return;
+    } else if (this.photoFile == null) {
+      alert('Veuillez charger la photo');
+      return;
+    } else if (this.quittanceFile == null) {
+      alert('Veuillez charger la quittance___');
+      return;
     }
 
     //ajout de conditions
-    if (this.fichierForm.valid) {
-      const formData = new FormData();
-      /* formData.append('annee', this.fichierForm.get('annee')?.value); */
-      if (this.demandeFile) {
-        formData.append('demande', this.demandeFile);
-      } else {
-        alert('Veuillez charger votre demande manuscrite');
-        return;
-      }
-      if (this.cnibFile) {
-        formData.append('cnib', this.cnibFile);
-      } else {
-        alert("Veuillez charger votre note de service d'affectation");
-        return;
-      }
-      if (this.reconnaissanceFile) {
-        formData.append('reconnaissance', this.reconnaissanceFile);
-      } else {
-        alert("Veuillez charger votre note de service d'affectation");
-        return;
-      }
-      if (this.listeMembreFile) {
-        formData.append('infrastructure', this.listeMembreFile);
-      } else {
-        alert('Veuillez charger votre fichier descriptif');
-        return;
-      }
-      if (this.engagementFile) {
-        formData.append('titreTerrain', this.engagementFile);
-      } else {
-        alert('Veuillez charger le titre du Terrain');
-        return;
-      }
-      if (this.photoFile) {
-        formData.append('planEtablissement', this.photoFile);
-      } else {
-        alert('Veuillez charger le fichier du plan');
-        return;
-      }
-      if (this.quitanceFile) {
-        formData.append('quitance', this.quitanceFile);
-      } else {
-        alert('Veuillez charger la quitance');
-        return;
-      }
-      this.permisConcessionSubmitted.emit(formData);
+    const formData = new FormData();
+    /* formData.append('annee', this.fichierForm.get('annee')?.value); */
+    if (this.demandeFile) {
+      formData.append('demande', this.demandeFile);
     } else {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Erreur',
-        detail: 'Veuillez remplir tous les champs obligatoires.',
-      });
+      alert('Veuillez charger votre demande manuscrite');
+      return;
     }
+    if (this.cnibFile) {
+      formData.append('cnib', this.cnibFile);
+    } else {
+      alert("Veuillez charger votre note de service d'affectation");
+      return;
+    }
+    if (this.reconnaissanceFile) {
+      formData.append('reconnaissance', this.reconnaissanceFile);
+    } else {
+      alert("Veuillez charger votre note de service d'affectation");
+      return;
+    }
+    if (this.listeMembreFile) {
+      formData.append('listeMembre', this.listeMembreFile);
+    } else {
+      alert('Veuillez charger votre fichier descriptif');
+      return;
+    }
+    if (this.engagementFile) {
+      formData.append('titreTerrain', this.engagementFile);
+    } else {
+      alert('Veuillez charger le titre du Terrain');
+      return;
+    }
+    if (this.photoFile) {
+      formData.append('photo', this.photoFile);
+    } else {
+      alert('Veuillez charger la photo');
+      return;
+    }
+    if (this.quittanceFile) {
+      formData.append('quittance', this.quittanceFile);
+    } else {
+      alert('Veuillez charger la quitance');
+      return;
+    }
+    this.permisConcessionSubmitted.emit(formData);
   }
 
   onTypeDemandeurChange(event: Event) {
@@ -152,8 +147,8 @@ export class FichierConcessionComponent {
         case 'photo':
           this.photoFile = file;
           break;
-        case 'quitance':
-          this.quitanceFile = file;
+        case 'quittance':
+          this.quittanceFile = file;
           break;
       }
     }

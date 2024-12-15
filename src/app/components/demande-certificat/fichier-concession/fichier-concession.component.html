@@ -1,15 +1,14 @@
 <div class="row mt-5">
-  <form [formGroup]="fichierForm" (ngSubmit)="onSubmit()">
+  <form enctype="multipart/form-data" action="/submit" method="post">
     <div class="row">
       <!-- Première colonne -->
       <div class="col col-md-6">
         <div class="mb-3 row">
           <label for="demande" class="col-sm-4 col-form-label"
             >Demande timbrée</label
-          >
+          >ng sev
           <div class="col-sm-8">
             <input
-              formControlName="demande"
               type="file"
               class="form-control"
               id="demande"
@@ -23,7 +22,6 @@
           >
           <div class="col-sm-8">
             <input
-              formControlName="cnib"
               type="file"
               class="form-control"
               id="cnib"
@@ -37,7 +35,6 @@
           >
           <div class="col-sm-8">
             <input
-              formControlName="reconnaissance"
               type="file"
               class="form-control"
               id="reconnaissance"
@@ -51,7 +48,6 @@
           >
           <div class="col-sm-8">
             <input
-              formControlName="listeMembre"
               type="file"
               class="form-control"
               id="listeMembre"
@@ -65,7 +61,6 @@
           >
           <div class="col-sm-8">
             <input
-              formControlName="engagement"
               type="file"
               class="form-control"
               id="engagement"
@@ -82,7 +77,6 @@
           >
           <div class="col-sm-8">
             <input
-              formControlName="photo"
               type="file"
               class="form-control"
               id="photo"
@@ -91,16 +85,15 @@
           </div>
         </div>
         <div class="mb-3 row">
-          <label for="quittances" class="col-sm-4 col-form-label"
+          <label for="quittance" class="col-sm-4 col-form-label"
             >Quittances de versement</label
           >
           <div class="col-sm-8">
             <input
-              formControlName="quittances"
               type="file"
               class="form-control"
-              id="quittances"
-              (change)="onFileSelect($event, 'quittances')"
+              id="quittance"
+              (change)="onFileSelect($event, 'quittance')"
             />
           </div>
         </div>
@@ -118,8 +111,7 @@
         <button
           class="btn btn-success"
           type="submit"
-          (click)="onSubmit()"
-          [disabled]="fichierForm.invalid"
+          (click)="onFileSave()"
           cdkStepperPrevious
         >
           Sauvegarder <i class="bi bi-arrow-right"></i>

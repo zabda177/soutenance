@@ -1,0 +1,51 @@
+.dashboard {
+  padding: 20px;
+  background-color: #f0f4f8; /* Fond plus clair */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ajout d'une ombre légère */
+}
+
+.stats {
+  display: flex;
+  justify-content: space-around;
+}
+
+.stat {
+  background: #ffffff; /* Couleur des cartes */
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  flex: 1;
+  margin: 0 10px;
+  transition: transform 0.3s; /* Animation lors du survol */
+}
+
+.stat:hover {
+  transform: scale(1.05); /* Effet de zoom au survol */
+}
+
+.stat h3 {
+  color: #333333; /* Couleur de texte */
+}
+
+.stat p {
+  font-size: 1.5em; /* Agrandir la taille du texte pour le nombre */
+}
+
+/* Couleurs d'accent */
+.stat:nth-child(1) {
+  border-left: 5px solid #4caf50; /* Vert pour les demandes soumises */
+}
+
+.stat:nth-child(2) {
+  border-left: 5px solid #f44336; /* Rouge pour les demandes rejetées */
+}
+
+.stat:nth-child(3) {
+  border-left: 5px solid #2196f3; /* Bleu pour les demandes validées */
+}
+
+.stat:nth-child(4) {
+  border-left: 5px solid #ff9800; /* Orange pour les demandes acceptées */
+}

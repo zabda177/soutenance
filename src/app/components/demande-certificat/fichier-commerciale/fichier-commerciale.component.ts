@@ -45,86 +45,83 @@ export class FichierCommercialeComponent {
   casierJudiciaireFile: File | null = null;
   certificatMedicalFile: File | null = null;
   photoFile: File | null = null;
-  quitanceFile: File | null = null;
-  messageService: any;
+  quittanceFile: File | null = null;
 
-  constructor() {
-    this.fichierForm = new FormGroup({
-      demande: new FormControl('', Validators.required),
-      cnib: new FormControl('', Validators.required),
-      attestationFiscale: new FormControl('', Validators.required),
-      carteProfessionnelle: new FormControl('', Validators.required),
-      casierJudiciaire: new FormControl('', Validators.required),
-      certificatMedical: new FormControl('', Validators.required),
-      photo: new FormControl('', Validators.required),
-      quittances: new FormControl('', Validators.required),
-    });
-  }
   @Output() licenceCommercialleSubmitted = new EventEmitter<FormData>();
+  constructor() {}
 
-  onSubmit(): void {
-    if (this.fichierForm.valid) {
-      this.formValide = true; // Active le message de succès
-      console.log('Formulaire validé');
-    } else {
-      this.formValide = false; // Désactive le message si formulaire invalide
-      this.fichierForm.markAllAsTouched(); // Marque tous les champs comme "touchés"
-      console.log('Le formulaire est invalide');
+  onFileSave() {
+    if (this.demandeFile == null) {
+      alert('Veuillez renseigné la demande');
+      return;
+    } else if (this.cnibFile == null) {
+      alert('Veuillez charger la CNIB');
+      return;
+    } else if (this.attestationFiscaleFile == null) {
+      alert('Veuillez chargée l attestation fiscale');
+      return;
+    } else if (this.carteProfessionnelleFile == null) {
+      alert('Veuillez chargée la carte professionnelle');
+      return;
+    } else if (this.casierJudiciaireFile == null) {
+      alert('Veuillez charger le casier judiciaire');
+      return;
+    } else if (this.certificatMedicalFile == null) {
+      alert('Veuillez charger le certificat Medical');
+      return;
+    } else if (this.photoFile == null) {
+      alert('Veuillez charger la photo');
+      return;
+    } else if (this.quittanceFile == null) {
+      alert('Veuillez charger la quitance');
+      return;
     }
 
-    if (this.fichierForm.valid) {
-      const formData = new FormData();
-      /* formData.append('annee', this.fichierForm.get('annee')?.value); */
-      if (this.demandeFile) {
-        formData.append('demande', this.demandeFile);
-      } else {
-        alert('Veuillez charger votre demande manuscrite');
-        return;
-      }
-      if (this.cnibFile) {
-        formData.append('cnib', this.cnibFile);
-      } else {
-        alert('Veuillez charger votre CNIB');
-        return;
-      }
-      if (this.attestationFiscaleFile) {
-        formData.append('reconnaissance', this.attestationFiscaleFile);
-      } else {
-        alert('Veuillez charger votre Document de reconnassance');
-        return;
-      }
-      if (this.casierJudiciaireFile) {
-        formData.append('infrastructure', this.casierJudiciaireFile);
-      } else {
-        alert('Veuillez charger votre fichier descriptif');
-        return;
-      }
-      if (this.carteProfessionnelleFile) {
-        formData.append('titreTerrain', this.carteProfessionnelleFile);
-      } else {
-        alert('Veuillez charger la carte Professionnelle');
-        return;
-      }
-      if (this.certificatMedicalFile) {
-        formData.append('planEtablissement', this.certificatMedicalFile);
-      } else {
-        alert('Veuillez charger le certificat Médical');
-        return;
-      }
-      if (this.quitanceFile) {
-        formData.append('quitance', this.quitanceFile);
-      } else {
-        alert('Veuillez charger la quitance');
-        return;
-      }
-      this.licenceCommercialleSubmitted.emit(formData);
+    const formData = new FormData();
+
+    if (this.demandeFile) {
+      formData.append('demande', this.demandeFile);
     } else {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Erreur',
-        detail: 'Veuillez remplir tous les champs obligatoires.',
-      });
+      alert('Veuillez charger votre demande manuscrite');
+      return;
     }
+    if (this.cnibFile) {
+      formData.append('cnib', this.cnibFile);
+    } else {
+      alert('Veuillez charger votre CNIB');
+      return;
+    }
+    if (this.attestationFiscaleFile) {
+      formData.append('reconnaissance', this.attestationFiscaleFile);
+    } else {
+      alert('Veuillez charger votre Document de reconnassance');
+      return;
+    }
+    if (this.casierJudiciaireFile) {
+      formData.append('casierJudiciaire', this.casierJudiciaireFile);
+    } else {
+      alert('Veuillez charger votre casir Judiciaire');
+      return;
+    }
+    if (this.carteProfessionnelleFile) {
+      formData.append('carteProfessionnelle', this.carteProfessionnelleFile);
+    } else {
+      alert('Veuillez charger la carte Professionnelle');
+      return;
+    }
+    if (this.certificatMedicalFile) {
+      formData.append('certificatMedicale', this.certificatMedicalFile);
+    } else {
+      alert('Veuillez charger le certificat Médical');
+      return;
+    }
+    if (this.quittanceFile) {
+      formData.append('quittance', this.quittanceFile);
+    } else {
+      alert('Veuillez charger la quitance');
+      return;
+    }
+    this.licenceCommercialleSubmitted.emit(formData);
   }
 
   onTypeDemandeurChange(event: Event) {
@@ -133,7 +130,7 @@ export class FichierCommercialeComponent {
   }
 
   onFileSelect(event: any, field: string) {
-    const file = event.target.files[0]; // Corrigé pour éviter une erreur de sélection de fichier
+    const file = event.target.files[0];
     if (file) {
       switch (field) {
         case 'demande':
@@ -145,17 +142,20 @@ export class FichierCommercialeComponent {
         case 'attestationFiscale':
           this.attestationFiscaleFile = file;
           break;
-        case 'CasierJudiciare':
+        case 'casierJudiciaire':
           this.casierJudiciaireFile = file;
           break;
         case 'certificatMedical':
           this.certificatMedicalFile = file;
           break;
+        case 'carteProfessionnelle':
+          this.carteProfessionnelleFile = file;
+          break;
         case 'photo':
           this.photoFile = file;
           break;
-        case 'quitance':
-          this.quitanceFile = file;
+        case 'quittance':
+          this.quittanceFile = file;
           break;
       }
     }

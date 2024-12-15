@@ -66,40 +66,44 @@ export class FichierPermisComponent {
       return;
     }
 
-    const formData = new FormData();
     /* formData.append('annee', this.fichierForm.get('annee')?.value); */
     if (this.demandeFile) {
-      formData.append('demande', this.demandeFile);
     } else {
       alert('Veuillez charger votre demande manuscrite');
       return;
     }
     if (this.cnibFile) {
-      formData.append('cnib', this.cnibFile);
     } else {
       alert('Veuillez charger CNIB');
       return;
     }
     if (this.certificatNationaliteFile) {
-      formData.append('reconnaissance', this.certificatNationaliteFile);
     } else {
       alert('Veuillez charger ');
       return;
     }
 
     if (this.photoFile) {
-      formData.append('planEtablissement', this.photoFile);
     } else {
       alert('Veuillez charger le fichier du plan');
       return;
     }
     if (this.quittanceFile) {
-      formData.append('quitance', this.quittanceFile);
     } else {
       alert('Veuillez charger la quitance');
       return;
     }
-    this.permisPecheSubmitted.emit(formData);
+    let listeFichier: any[] = [
+      { label: 'demande', fichier: this.demandeFile },
+      { label: 'cnib', fichier: this.cnibFile },
+      {
+        label: 'certificatNationalite',
+        fichier: this.certificatNationaliteFile,
+      },
+      { label: 'photo', fichier: this.photoFile },
+      { label: 'quittance', fichier: this.quittanceFile },
+    ];
+    this.permisPecheSubmitted.emit(listeFichier);
   }
 
   onTypeDemandeurChange(event: Event) {
@@ -108,23 +112,29 @@ export class FichierPermisComponent {
   }
 
   onFileSelect(event: any, field: string) {
+    console.log('event => ', event);
     const file = event.target.files[0]; // Corrigé pour éviter une erreur de sélection de fichier
     if (file) {
       switch (field) {
         case 'demande':
           this.demandeFile = file;
+
           break;
         case 'cnib':
           this.cnibFile = file;
+
           break;
         case 'certificatNationalite':
           this.certificatNationaliteFile = file;
+
           break;
         case 'photo':
           this.photoFile = file;
+
           break;
         case 'quittance':
           this.quittanceFile = file;
+
           break;
       }
     }

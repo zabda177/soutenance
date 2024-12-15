@@ -1,133 +1,126 @@
 <p>fichier-guide works!</p>
 
 <div class="row mt-5">
-  <form [formGroup]="fichierForm" (ngSubmit)="onSubmit()">
-    <div class="row">
-      <!-- Première colonne -->
-      <div class="col col-md-6">
-        <div class="mb-3 row">
-          <label for="demande" class="col-sm-4 col-form-label"
-            >Demande timbrée</label
-          >
-          <div class="col-sm-8">
-            <input
-              formControlName="demande"
-              type="file"
-              class="form-control"
-              id="demande"
-              (change)="onFileSelect($event, 'demande')"
-            />
-          </div>
-        </div>
-        <div class="mb-3 row">
-          <label for="cnib" class="col-sm-4 col-form-label"
-            >Document d'Identité</label
-          >
-          <div class="col-sm-8">
-            <input
-              formControlName="cnib"
-              type="file"
-              class="form-control"
-              id="cnib"
-              (change)="onFileSelect($event, 'cnib')"
-            />
-          </div>
-        </div>
-        <div class="mb-3 row">
-          <label for="reconnaissanee" class="col-sm-4 col-form-label"
-            >Document personne Morale</label
-          >
-          <div class="col-sm-8">
-            <input
-              formControlName="reconnaissance"
-              type="file"
-              class="form-control"
-              id="reconnaissane"
-              (change)="onFileSelect($event, 'reconnaissance')"
-            />
-          </div>
-        </div>
-        <div class="mb-3 row">
-          <label for="certificatNationalite" class="col-sm-4 col-form-label"
-            >Certificat de Nationalité
-          </label>
-          <div class="col-sm-8">
-            <input
-              formControlName="certificatNationalite"
-              type="file"
-              class="form-control"
-              id="certificatNationalite"
-              (change)="onFileSelect($event, 'certificatNationalite')"
-            />
-          </div>
-        </div>
-        <div class="mb-3 row">
-          <label for="listeEquipement" class="col-sm-4 col-form-label">
-            Liste des Equiments</label
-          >
-          <div class="col-sm-8">
-            <input
-              formControlName="listeEquipement"
-              type="file"
-              class="form-control"
-              id="listeEquipement"
-              (change)="onFileSelect($event, 'listeEquipement')"
-            />
-          </div>
-        </div>
-      </div>
-
-      <div class="col col-md-6">
-        <div class="mb-3 row">
-          <label for="photo" class="col-sm-4 col-form-label"
-            >Photo d'identiter</label
-          >
-          <div class="col-sm-8">
-            <input
-              formControlName="photo"
-              type="file"
-              class="form-control"
-              id="photo"
-              (change)="onFileSelect($event, 'photo')"
-            />
-          </div>
-        </div>
-
-        <div class="mb-3 row">
-          <label for="quittances" class="col-sm-4 col-form-label"
-            >Quittances de versement</label
-          >
-          <div class="col-sm-8">
-            <input
-              formControlName="quittances"
-              type="file"
-              class="form-control"
-              id="quittances"
-              (change)="onFileSelect($event, 'quittances')"
-            />
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Boutons -->
-    <div class="row">
-      <div class="mb-3 col-md-6">
-        <button class="btn btn-danger" type="button" cdkStepperPrevious>
-          <i class="bi bi-arrow-left"></i> Précédent
-        </button>
-      </div>
-      <div class="mb-3 col-md-6 text-end">
-        <button
-          class="btn btn-success"
-          type="submit"
-          (click)="onSubmit()"
-          [disabled]="fichierForm.invalid"
-          cdkStepperNext
+  enctype="multipart/form-data" action="/submit" method="post">
+  <!-- Première colonne -->
+  <div class="row">
+    <!-- Première colonne -->
+    <div class="col col-md-6">
+      <div class="mb-3 row">
+        <label for="demande" class="col-sm-4 col-form-label"
+          >Demande timbrée</label
         >
-          Sauvegarder <i class="bi bi-arrow-right"></i>
-        </button>
+        <div class="col-sm-8">
+          <input
+            type="file"
+            class="form-control"
+            id="demande"
+            (change)="onFileSelect($event, 'demande')"
+          />
+        </div>
+      </div>
+      <div class="mb-3 row">
+        <label for="cnib" class="col-sm-4 col-form-label"
+          >Document d'Identité</label
+        >
+        <div class="col-sm-8">
+          <input
+            type="file"
+            class="form-control"
+            id="cnib"
+            (change)="onFileSelect($event, 'cnib')"
+          />
+        </div>
+      </div>
+      <div class="mb-3 row">
+        <label for="reconnaissanee" class="col-sm-4 col-form-label"
+          >Document personne Morale</label
+        >
+        <div class="col-sm-8">
+          <input
+            type="file"
+            class="form-control"
+            id="reconnaissane"
+            (change)="onFileSelect($event, 'reconnaissance')"
+          />
+        </div>
+      </div>
+      <div class="mb-3 row">
+        <label for="certificatNationalite" class="col-sm-4 col-form-label"
+          >Certificat de Nationalité
+        </label>
+        <div class="col-sm-8">
+          <input
+            type="file"
+            class="form-control"
+            id="certificatNationalite"
+            (change)="onFileSelect($event, 'certificatNationalite')"
+          />
+        </div>
+      </div>
+      <div class="mb-3 row">
+        <label for="listeEquipement" class="col-sm-4 col-form-label">
+          Liste des Equiments</label
+        >
+        <div class="col-sm-8">
+          <input
+            type="file"
+            class="form-control"
+            id="listeEquipement"
+            (change)="onFileSelect($event, 'listeEquipement')"
+          />
+        </div>
       </div>
     </div>
-  </form>
+
+    <div class="col col-md-6">
+      <div class="mb-3 row">
+        <label for="photo" class="col-sm-4 col-form-label"
+          >Photo d'identiter</label
+        >
+        <div class="col-sm-8">
+          <input
+            type="file"
+            class="form-control"
+            id="photo"
+            (change)="onFileSelect($event, 'photo')"
+          />
+        </div>
+      </div>
+
+      <div class="mb-3 row">
+        <label for="quittances" class="col-sm-4 col-form-label"
+          >Quittances de versement</label
+        >
+        <div class="col-sm-8">
+          <input
+            formControlName="quittance"
+            type="file"
+            class="form-control"
+            id="quittance"
+            (change)="onFileSelect($event, 'quittance')"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Boutons -->
+  <div class="row">
+    <div class="mb-3 col-md-6">
+      <button class="btn btn-danger" type="button" cdkStepperPrevious>
+        <i class="bi bi-arrow-left"></i> Précédent
+      </button>
+    </div>
+    <div class="mb-3 col-md-6 text-end">
+      <button
+        class="btn btn-success"
+        type="submit"
+        (click)="onFileSave()"
+        cdkStepperNext
+      >
+        Sauvegarder <i class="bi bi-arrow-right"></i>
+      </button>
+    </div>
+  </div>
 </div>

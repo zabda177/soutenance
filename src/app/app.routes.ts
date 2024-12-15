@@ -1,3 +1,4 @@
+import { DemandeAgrementCustomerComponent } from './pages/customers/demande-agrement-customer/demande-agrement-customer.component';
 import { FichierPermisComponent } from './components/demande-certificat/fichier-permis/fichier-permis.component';
 /**
  * @description      :
@@ -14,52 +15,88 @@ import { FichierPermisComponent } from './components/demande-certificat/fichier-
 import { Routes } from '@angular/router';
 import { AdminRoute } from './pages/admin/admin.route';
 import { CustomerRoute } from './pages/customers/customer.route';
-import { DemandeLicenceComponent } from './components/demande-certificat/demande-licence/demande-licence.component';
-import { PecheComponent } from './components/demande-certificat/peche/peche.component';
-import { FichierConcessionComponent } from './components/demande-certificat/fichier-concession/fichier-concession.component';
-import { GuideComponent } from './components/demande-certificat/guide/guide.component';
-import { FichierGuideComponent } from './components/demande-certificat/fichier-guide/fichier-guide.component';
-import { CommercialeComponent } from './components/demande-certificat/commerciale/commerciale.component';
-import { FichierCommercialeComponent } from './components/demande-certificat/fichier-commerciale/fichier-commerciale.component';
-import { AgrementComponent } from './components/demande-certificat/agrement/agrement.component';
 
+import { FichierConcessionComponent } from './components/demande-certificat/fichier-concession/fichier-concession.component';
+
+import { FichierGuideComponent } from './components/demande-certificat/fichier-guide/fichier-guide.component';
+
+import { FichierCommercialeComponent } from './components/demande-certificat/fichier-commerciale/fichier-commerciale.component';
+import { VerificationComponent } from './pages/customers/verification/verification/verification.component';
+import { DemandeValideComponent } from './pages/customers/demandeValide/demande-valide/demande-valide.component';
+import { DemandeAccepterComponent } from './pages/customers/demandeAcceptee/demande-accepter/demande-accepter.component';
+import { DemandeAccepterDetailsComponent } from './pages/customers/demandeAcceptee/demande-accepter-details/demande-accepter-details.component';
+import { DashboardComponent } from './pages/customers/dashboard/dashboard.component';
+import { HttpClient } from '@angular/common/http';
+import { DemandeComponent } from './pages/admin/demande/demande.component';
+import { MenuComponent } from './components/ui/menu/menu.component';
+import { DemandeRejeteComponent } from './pages/customers/demande-rejetees/demande-rejete.component';
+import { DemamndeDetailsComponent } from './pages/customers/demamnde-details/demamnde-details.component';
 export const routes: Routes = [
 
+
+
+
   {
-    path: 'demandeLicence',
-    component: DemandeLicenceComponent,
+    path: 'demande-details',
+    component: DemamndeDetailsComponent,
+  },
+
+  {
+    path: 'demande-accepter-details',
+    component: DemandeAccepterDetailsComponent,
+  },
+
+  {
+    path: 'demande-rejete',
+    component: DemandeRejeteComponent,
   },
   {
-    path:'peche',
-    component: PecheComponent,
+    path: 'demandeAccepteDetails',
+    component: DemandeAccepterDetailsComponent,
   },
   {
-    path:'fichierConcesssion',
-    component: FichierConcessionComponent,
+    path: 'demande',
+    component: DemandeComponent,
   },
   {
-    path:'guide',
-    component: GuideComponent,
+    path: 'demandes/acceptees',
+    component: DemandeAccepterComponent
+  },
+  {
+    path: 'menu',
+    component: MenuComponent,
+  },
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
   },
   {
     path: 'fichierGuide',
     component: FichierGuideComponent,
   },
+
+
   {
-    path:'commerciale',
-    component: CommercialeComponent,
-  },
-  {
-    path:'fichierCommerciale',
+    path: 'fichierCommerciale',
     component: FichierCommercialeComponent,
   },
+
   {
-    path:'agrement',
-    component: AgrementComponent,
+    path: 'permis',
+    component: FichierPermisComponent,
   },
   {
-    path:'permis',
-    component: FichierPermisComponent,
+    path: 'fichierConcesssion',
+    component: FichierConcessionComponent,
+  },
+
+  {
+    path: 'verification',
+    component: VerificationComponent,
+  },
+  {
+    path: 'demandes',
+    component: DemandeAgrementCustomerComponent,
   },
 
   {

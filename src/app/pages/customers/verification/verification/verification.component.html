@@ -1,0 +1,150 @@
+<link
+  href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+  rel="stylesheet"
+/>
+<div class="container">
+  <section class="step-wizard">
+    <ul class="step-wizard-list">
+      <li
+        class="step-wizard-item"
+        [ngClass]="{
+          completed: currentStep >= -1,
+          current: currentStep === -1
+        }"
+      >
+        <span class="progress-count">0</span>
+        <span class="progress-label">Demande Rejetée</span>
+      </li>
+      <li
+        class="step-wizard-item"
+        [ngClass]="{ completed: currentStep >= 0, current: currentStep === 0 }"
+      >
+        <span class="progress-count">0</span>
+        <span class="progress-label">Etat Initial</span>
+      </li>
+      <li
+        class="step-wizard-item"
+        [ngClass]="{ completed: currentStep >= 1, current: currentStep === 1 }"
+      >
+        <span class="progress-count">1</span>
+        <span class="progress-label">Demande Soumise</span>
+      </li>
+      <li
+        class="step-wizard-item"
+        [ngClass]="{ completed: currentStep >= 2, current: currentStep === 2 }"
+      >
+        <span class="progress-count">2</span>
+        <span class="progress-label">Demande Acceptée pour Traitement</span>
+      </li>
+      <li
+        class="step-wizard-item"
+        [ngClass]="{ completed: currentStep >= 3, current: currentStep === 3 }"
+      >
+        <span class="progress-count">3</span>
+        <span class="progress-label">Demande Validée par le Sous Comité</span>
+      </li>
+      <li
+        class="step-wizard-item"
+        [ngClass]="{ completed: currentStep >= 4, current: currentStep === 4 }"
+      >
+        <span class="progress-count">4</span>
+        <span class="progress-label">Approbation du Ministère</span>
+      </li>
+      <li
+        class="step-wizard-item"
+        [ngClass]="{ completed: currentStep >= 5, current: currentStep === 5 }"
+      >
+        <span class="progress-count">5</span>
+        <span class="progress-label">Agrément Disponible</span>
+      </li>
+    </ul>
+  </section>
+  <div *ngIf="demandeSoumise">
+    <div *ngFor="let demande of demandeSoumise">
+      <div class="detail-container">
+        <h2>Détails de la Demande</h2>
+
+        <div class="detail-item">
+          <label>Code Demande:</label>
+          <span>{{ demande.codeDemande }}</span>
+        </div>
+        <div class="detail-item">
+          <label>Statut:</label>
+          <span>{{ demande.statut }}</span>
+        </div>
+        <div class="detail-item">
+          <label>Date de Demande:</label>
+          <span>{{ demande.dateDepot | date : "yyyy-MM-dd" }}</span>
+        </div>
+
+        <h3>Informations sur le Demandeur</h3>
+        <div class="detail-item">
+          <label>Nom:</label>
+          <span>{{ demande.nom }}</span>
+        </div>
+        <div class="detail-item">
+          <label>Prénom:</label>
+          <span>{{ demande.prenom }}</span>
+        </div>
+        <div class="detail-item">
+          <label>Date de Naissance:</label>
+          <span>{{ demande.dateNaisse | date : "yyyy-MM-dd" }}</span>
+        </div>
+
+        <div class="detail-item">
+          <label>Résidence:</label>
+          <span>{{ demande.lieuResidence }}</span>
+        </div>
+        <div class="detail-item">
+          <label>Genre:</label>
+          <span>{{ demande.genre }}</span>
+        </div>
+        <div class="detail-item">
+          <label>Type de Pièce:</label>
+          <span>{{ demande.typePiece }}</span>
+        </div>
+        <div class="detail-item">
+          <label>Numéro de Pièce:</label>
+          <span>{{ demande.numPiece }}</span>
+        </div>
+
+        <div class="detail-item">
+          <label>Téléphone 1:</label>
+          <span>{{ demande.telephone1 }}</span>
+        </div>
+        <div class="detail-item">
+          <label>Téléphone 2:</label>
+          <span>{{ demande.telephone2 }}</span>
+        </div>
+        <div class="detail-item">
+          <label>Email:</label>
+          <span>{{ demande.mail }}</span>
+        </div>
+        <div class="detail-item">
+          <label>Dénomination:</label>
+          <span>{{ demande.denomination }}</span>
+        </div>
+        <div class="detail-item">
+          <label>Num RCCM:</label>
+          <span>{{ demande.ifu }}</span>
+        </div>
+
+        <h3>Documents Fournis</h3>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Libellé</th>
+              <th>Fichier</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let piece of demande">
+              <td>{{ piece.libelle }}</td>
+              <td><a [href]="piece.fichier" target="_blank">Télécharger</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

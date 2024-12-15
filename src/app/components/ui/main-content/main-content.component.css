@@ -1,7 +1,6 @@
-.container{
-margin-top: -50px;
+.container {
+  margin-top: -50px;
 }
-
 
 .header {
   background-color: #198753;
@@ -34,13 +33,18 @@ margin-top: -50px;
 
 .col-md-4 {
   margin-bottom: 20px; /* Pour ajouter un espacement entre les colonnes */
-  margin-top: 20px;
+  margin-top: 80px;
 }
 
 .main-content .container {
-  padding-bottom:50px;
+  padding-bottom: 50px;
 }
 .row {
   row-gap: 40px; /* Espacement entre les lignes */
 }
-footer {position: absolute; bottom: 0; left: 0; right: 0}
+footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}

@@ -1,52 +1,66 @@
-<div class="row mt-5">
-  <!-- Champ de sélection pour le type de demandeur -->
-  <div class="row mb-3 justify-content-center">
-    <!-- Centrer le contenu horizontalement -->
-    <h1 class="text-center mt-4">Demande de Création d'un Etablissement</h1>
-
-    <div class="col-sm-4">
-      <!-- Aligner le label et le select à gauche -->
-
-      <select
-        id="typeDemandeur"
-        class="form-control"
-        (change)="onTypeDemandeurChange($event)"
-      >
-        <option value="">-- Sélectionner le type de demendeur --</option>
-        <option value="physique">Personne physique</option>
-        <option value="morale">Personne morale</option>
-      </select>
-    </div>
+<div class="container">
+  <!-- Sélecteur pour le type de demandeur -->
+  <div class="row mt-5 justify-content-center">
+    <select
+      id="typeDemandeur"
+      class="form-control"
+      (change)="onTypeDemandeurChange($event)"
+    >
+      <option value="">-- Sélectionner le type de demandeur --</option>
+      <option value="physique">Personne physique</option>
+      <option value="morale">Personne morale</option>
+    </select>
   </div>
+  <app-stepper [linearModeSelected]="false" #appStepper>
+    <!-- Étape 1 : Demandeur -->
+    <cdk-step label="Demandeur">
+      <ng-container *ngIf="typeDemandeur === 'physique'">
+        <app-demandeur
+          (demandeurEvent)="etablissementDemandeurEvent($event)"
+          (typeDemandeChange)="ontypeDemandeChange($event)"
 
-  <!-- Contenu du Stepper et formulaires -->
-  <div class="container">
-    <div class="row">
-      <div class="col-md-9 mx-auto">
-        <!-- Stepper Component -->
-        <app-stepper [linearModeSelected]="false" #appStepper>
-          <!-- Steps -->
+        ></app-demandeur>
+      </ng-container>
+      <ng-container *ngIf="typeDemandeur === 'morale'">
+        <app-personne-morale
+          (personneMoraleEvent)="etablissementPersonneMoraleEvent($event)"
+          (typeDemandeChange)="ontypeDemandeChange($event)"
 
-          <!-- Step 1: Demandeur -->
-          <cdk-step label="Demandeur">
-            <!-- Afficher Demandeur en fonction du type sélectionné -->
-            <ng-container *ngIf="typeDemandeur === 'physique'">
-              <app-demandeur></app-demandeur>
-              <!-- Formulaire pour Personne physique -->
-            </ng-container>
-            <ng-container *ngIf="typeDemandeur === 'morale'">
-              <app-personne-morale></app-personne-morale>
-              <!-- Formulaire pour Personne morale -->
-            </ng-container>
-          </cdk-step>
+        ></app-personne-morale>
+      </ng-container>
+    </cdk-step>
 
-          <!-- Step 2: Fichiers -->
-          <cdk-step label="Fichiers">
-            <app-fichier></app-fichier>
-            <!-- Formulaire pour le téléchargement de fichiers -->
-          </cdk-step>
-        </app-stepper>
-      </div>
-    </div>
-  </div>
+    <!-- Étape 2 : Pièces Jointes -->
+    <cdk-step label="Pièces Jointes">
+      <ng-container *ngIf="typeDemande === 'permiPeche'">
+        <app-fichier-permis
+          (permisPecheSubmitted)="permisPecheSubmitted($event)"
+        ></app-fichier-permis>
+      </ng-container>
+      <ng-container *ngIf="typeDemande === 'licenceGuide'">
+        <app-fichier-guide
+          (LicenceGuideSubmitted)="guideSubmitted($event)"
+        ></app-fichier-guide>
+      </ng-container>
+      <ng-container *ngIf="typeDemande === 'licenceCommerciale'">
+        <app-fichier-commerciale
+          (licenceCommercialleSubmitted)="licenceCommercialleeSubmitted($event)"
+        ></app-fichier-commerciale>
+      </ng-container>
+      <ng-container *ngIf="typeDemande === 'agrementConcession'">
+        <app-fichier-concession
+          (permisConcessionSubmitted)="permisConcessionSubmitted($event)"
+        >
+        </app-fichier-concession>
+      </ng-container>
+      <ng-container *ngIf="typeDemande === 'etablissement'">
+        <app-fichier
+          (fichierSubmitted)="fichierSubmitted($event)"
+        ></app-fichier>
+      </ng-container>
+      <button (click)="onSubmit()" class="btn btn-primary mt-3">
+        Soumettre la Demande
+      </button>
+    </cdk-step>
+  </app-stepper>
 </div>

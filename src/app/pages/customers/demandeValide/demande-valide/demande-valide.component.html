@@ -1,0 +1,48 @@
+<div class="row">
+  <div class="col-2">
+    <app-menu></app-menu>
+  </div>
+  <div class="col-10">
+    <div class="container mt-3">
+      <br /><br /><br />
+      <h2>Liste des Acceptées</h2>
+      <table class="table">
+        <thead class="table-dark">
+          <tr>
+            <th>Type de Demande</th>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Date de Naissance</th>
+            <th>Genre</th>
+            <th>Email</th>
+            <th>Téléphone1</th>
+            <th>Téléphone2</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr></tr>
+          <tr *ngFor="let demande of demandeValide">
+            <td>{{ demande.typeDemande }}</td>
+            <td>{{ demande.nom }}</td>
+            <td>{{ demande.prenom }}</td>
+            <td>{{ demande.dateNaisse | date }}</td>
+            <td>{{ demande.genre }}</td>
+            <td>{{ demande.mail }}</td>
+            <td>{{ demande.telephone1 }}</td>
+            <td>{{ demande.telephone2 }}</td>
+            <td>
+              <button
+                type="submit"
+                class="btn btn-primary"
+                type="button"
+                (click)="afficherDetailsValidees(demande)"
+              >
+                Détails
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

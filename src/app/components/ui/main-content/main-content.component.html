@@ -28,17 +28,14 @@
           (MARAH)
         </h2>
         <h3>DU BURKINA FASO</h3>
-        <h3>
-          Gestion des attributions des sites de Pèches
-          et d'Aquacultures
-        </h3>
+        <h3>Gestion des attributions des sites de Pèches et d'Aquacultures</h3>
       </div>
 
       <div class="row">
         <div class="col-md-4 text-center">
           <i class="fas fa-file-alt feature-icon mb-3"></i>
-          <h4>CREATION D'UN ETABLISSEMENT</h4>
-          <p> Demande de création d'un Etablissement</p>
+          <h4>Soumettre une Demande</h4>
+          <a [routerLink]="['/demandes']" > Accéder au formulaire</a>
           <button class="btn btn-success" (click)="formulaireDemande()">
             Accéder au formulaire <i class="bi bi-arrow-right"></i>
           </button>
@@ -46,38 +43,12 @@
 
         <div class="col-md-4 text-center">
           <i class="fas fa-check-circle feature-icon mb-3"></i>
-          <h4>PERMIS DE PECHE</h4>
-          <p>Demander un Permis de Pèche</p>
-          <button class="btn btn-success" (click)="formulairePeche()">
-            Accedez au formulaire <i class="bi bi-arrow-right"></i>
-          </button>
-        </div>
-        <div class="col-md-4 text-center">
-          <i class="fas fa-check-circle feature-icon mb-3"></i>
-          <h4>LICENCE GUIDE</h4>
-          <p>Demander une  licence de Guide</p>
-          <button class="btn btn-success"  (click)="formulaireGuide()">
-            Accedez au formulaire <i class="bi bi-arrow-right"></i>
-          </button>
-        </div>
+          <h4>Verifier ma Demandes</h4>
 
-        <div class="col-md-4 text-center">
-          <i class="fas fa-check-circle feature-icon mb-3"></i>
-          <h4>LICENCE COMMERCIALE</h4>
-          <p>Demander une Licence Commerciale</p>
-          <button class="btn btn-success" (click)="forrmulaireCommeerciale()" >
+          <button class="btn btn-success" (click)="verification()">
             Accedez au formulaire <i class="bi bi-arrow-right"></i>
           </button>
         </div>
-        <div class="col-md-4 text-center">
-          <i class="fas fa-check-circle feature-icon mb-3"></i>
-          <h4>AGREMENT D'UNE CONCESSION</h4>
-          <p>Demande de Cession d'une Concession</p>
-          <button class="btn btn-success" (click)="formulaireAgrement()">
-            Accedez au formulaire <i class="bi bi-arrow-right"></i>
-          </button>
-        </div>
-
       </div>
     </div>
   </main>

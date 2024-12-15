@@ -2,9 +2,21 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh; /* Utilise toute la hauteur de la fenêtre */
+  height: 70vh; /* Utilise toute la hauteur de la fenêtre*/
 }
 
 .p-3 {
   text-align: center;
+}
+
+.row.mb-3.justify-content-center {
+  margin-top: 60px !important; /* Ajustez la valeur*/
+}
+.container {
+  margin-top: 600px !important; /* Ajustez la valeur*/
+}
+
+.row.mb-3.justify-content-center {
+  margin-top: 30px !important;
+  background-color: rgba(255, 0, 0, 0.2); /* Rouge transparent */
 }

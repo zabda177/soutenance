@@ -1,0 +1,66 @@
+<div class="sidebar">
+  <img
+    src="/assets/images/armoirie_burkina.jpg"
+    alt="armoirie burkina"
+    class="logo"
+  />
+  <h2>Menu</h2>
+  <ul>
+    <li>
+      <a [routerLink]="['/customer/dash']" routerLinkActive="active"
+        >Demandes</a
+      >
+      <ul>
+        <li>
+          <a
+            [routerLink]="['/customer/demande']"
+            routerLinkActive="active"
+            >Demandes Soumises</a
+          >
+        </li>
+        <li>
+          <a
+            [routerLink]="['/customer/demandes/acceptees']"
+            routerLinkActive="active"
+            >Demandes Acceptées</a
+          >
+        </li>
+        <li>
+          <a
+            [routerLink]="['/customer/demande-valide']"
+            routerLinkActive="active"
+            >Demandes Agrées</a
+          >
+        </li>
+        <li>
+          <a
+            [routerLink]="['/customer/demande-rejete']"
+            routerLinkActive="active"
+            >Demandes Rejetées</a
+          >
+        </li>
+        <!-- <li><a [routerLink]="['/demandes/agreements']" routerLinkActive="active">Demandes Agrées</a></li> -->
+      </ul>
+    </li>
+    <li>
+      <a href="#">Paramétrage</a>
+      <ul>
+        <li>
+          <a [routerLink]="['/customer/region']" routerLinkActive="active"
+            >Régions</a
+          >
+        </li>
+        <li>
+          <a [routerLink]="['/customer/province']" routerLinkActive="active"
+            >Provinces</a
+          >
+        </li>
+        <li>
+          <a [routerLink]="['/customer/commune']" routerLinkActive="active"
+            >Communes</a
+          >
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
