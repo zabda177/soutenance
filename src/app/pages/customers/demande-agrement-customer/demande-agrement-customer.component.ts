@@ -28,7 +28,7 @@ import { FichierCommercialeComponent } from '../../../components/demande-certifi
 import { FichierConcessionComponent } from '../../../components/demande-certificat/fichier-concession/fichier-concession.component';
 import { DemandeServiceService } from '../../../components/demande-certificat/service/demande-service.service';
 import { HttpClientModule, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
-
+import { v4 as uuidv4 } from 'uuid';
 @Component({
   selector: 'app-demande-agrement-custumer',
   templateUrl: './demande-agrement-customer.component.html',
@@ -65,16 +65,22 @@ export class DemandeAgrementCustomerComponent {
 
   constructor(private demandeServiceService: DemandeServiceService) { }
 
+
+
+
+
   // Méthode pour changer dynamiquement le formulaire en fonction du type de demandeur sélectionné
   onTypeDemandeurChange(event: Event) {
     const selectElement = event.target as HTMLSelectElement;
     this.typeDemandeur = selectElement.value; // 'physique' ou 'morale'
+    console.log('Type de demandeur sélectionné :', this.typeDemandeur);
+
   }
 
   ontypeDemandeChange(typeDemande: string) {
     this.typeDemande = typeDemande; // Met à jour automatiquement le composant à afficher
     this.demandesData = event;
-    console.log('Données de la demande reçues :', this.demandesData);
+    console.log('Données typeDemande :', this.typeDemande);
   }
 
   etablissementPersonneMoraleEvent(event: any) {
@@ -115,13 +121,54 @@ export class DemandeAgrementCustomerComponent {
     console.log('Données de la demande :', event);
   }
 
+
+  /**
+ * Génère un code composé de lettres majuscules et de chiffres.
+ */
+  private generateCodeDemande(): string {
+    const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const digits = '0123456789';
+    let code = '';
+
+    // Ajouter 4 lettres majuscules
+    for (let i = 0; i < 4; i++) {
+      code += letters.charAt(Math.floor(Math.random() * letters.length));
+    }
+
+    // Ajouter 4 chiffres
+    for (let i = 0; i < 4; i++) {
+      code += digits.charAt(Math.floor(Math.random() * digits.length));
+    }
+
+    return code;
+  }
+  // Genère des numéros uniquement
+  private generateNumericCode(length: number = 8): string {
+    const digits = '0123456789';
+    let code = '';
+
+    for (let i = 0; i < length; i++) {
+      code += digits.charAt(Math.floor(Math.random() * digits.length));
+    }
+
+    return code;
+  }
+
   onSubmit() {
     const formData = new FormData();
+    const numeroDemande = this.generateNumericCode();
+    const codeDemande = this.generateCodeDemande();
 
+
+    if (!this.demandesData) {
+      this.demandesData = {}; // Assurez-vous que demandesData est initialisé
+    }
+    this.demandesData.numeroDemande = numeroDemande;
+    this.demandesData.codeDemande = codeDemande;
     // Ajouter les données de demande
     if (this.demandesData) {
-      formData.append('categorie', this.demandesData.categorie || '');
-      formData.append('typeDemande', this.demandesData.typeDemande || '');
+      formData.append('typeDemandeur', this.typeDemandeur || '');
+      formData.append('typeDemande', this.typeDemande || '');
       formData.append('prix', this.demandesData.prix ? this.demandesData.prix.toString() : '0');
       formData.append('numeroDemande', this.demandesData.numeroDemande ? this.demandesData.numeroDemande.toString() : '');
       formData.append('codeDemande', this.demandesData.codeDemande || '');
@@ -146,6 +193,7 @@ export class DemandeAgrementCustomerComponent {
       formData.append('telephone1', this.personneMoraleData.telephone1 || '');
       formData.append('telephone2', this.personneMoraleData.telephone2 || '');
       formData.append('mail', this.personneMoraleData.mail || '');
+
     } else if (this.typeDemandeur === 'physique' && this.demandeurData) {
       formData.append('nom', this.demandeurData.nom || '');
       formData.append('prenom', this.demandeurData.prenom || '');
@@ -157,6 +205,7 @@ export class DemandeAgrementCustomerComponent {
       formData.append('mail', this.demandeurData.mail || '');
       formData.append('typePiece', this.demandeurData.typePiece || '');
       formData.append('numPiece', this.demandeurData.numPiece || '');
+
     }
 
     console.log('Envoi du formulaire:', formData);
@@ -171,6 +220,13 @@ export class DemandeAgrementCustomerComponent {
           console.error('Erreur lors de l\'envoi du formulaire:', error);
         }
       });
+    console.table(this.demandesData)
+    console.table(this.demandeurData)
+    console.table(this.personneMoraleData)
+    console.log('Soumission des données :', {
+      typeDemandeur: this.typeDemandeur,
+      typeDemande: this.typeDemande,
+    });
   }
 
 

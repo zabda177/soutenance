@@ -49,7 +49,7 @@ export class DemamndeDetailsComponent {
   constructor(
     private route: ActivatedRoute,
     private demandeService: DemandeServiceService
-  ) {}
+  ) { }
   ngOnInit(): void {
     // Utilisez `paramMap` pour récupérer le paramètre dynamique 'idDemande'
     this.idDemande = +this.route.snapshot.paramMap.get('id')!;

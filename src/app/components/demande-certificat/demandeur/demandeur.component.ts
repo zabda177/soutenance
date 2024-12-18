@@ -33,7 +33,7 @@ export class DemandeurComponent implements OnInit {
   typeDemandeur: string = ''; // Pour gérer le type de demandeur
 
   @Output() demandeurEvent: EventEmitter<any> = new EventEmitter<any>();
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   @Output() typeDemandeChange = new EventEmitter<string>();
 

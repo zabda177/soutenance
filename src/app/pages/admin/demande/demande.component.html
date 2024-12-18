@@ -10,25 +10,22 @@
         <tr>
           <th>N° ID</th>
           <th> Type de Demande</th>
-          <th>Nom du Responsoble</th>
-          <th>Denomination</th>
-          <th>Siège Sociale</th>
-          <th>Email</th>
-          <th>Téléphone1</th>
-          <th>Téléphone2</th>
-        </tr>
+          <th> Type de Demandeur</th>
+          <th>Numéro Demande</th>
+          <th>Code Demande</th>
+          <th>Date de Depot</th>
+                </tr>
       </thead>
       <tbody>
         <tr></tr>
         <tr *ngFor="let demande of demandes">
           <td>{{ demande.id }}</td>
-          <td>{{ demande.categorie}}</td>
-          <td>{{ demande.nomResponsable }}</td>
-          <td>{{ demande.denomination }}</td>
-          <td>{{ demande.siege }}</td>
-          <td>{{ demande.mail }}</td>
-          <td>{{ demande.telephone1 }}</td>
-          <td>{{ demande.telephone2 }}</td>
+          <td>{{ demande.typeDemande}}</td>
+          <td>{{ demande.typeDemandeur }}</td>
+          <td>{{ demande.numeroDemande }}</td>
+          <td>{{ demande.codeDemande }}</td>
+          <td>{{ demande.dateDepot }}</td>
+
           <td>
             <button
               type="submit"

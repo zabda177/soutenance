@@ -11,7 +11,7 @@
  * - Modification    :
  **/
 import { Injectable } from '@angular/core';
-
+import { v4 as uuidv4 } from 'uuid';
 import {
   Commune,
   DashboardStats,
@@ -28,9 +28,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class DemandeServiceService {
   private baseUrl = 'http://127.0.0.1:8081/api';
+  codeDemande = uuidv4();
+
 
   private demandeSoumise: SoumissionDto | null = null;
   constructor(private http: HttpClient) { }
+
+
+
 
   soumission(formData: FormData): Observable<any> {
     return this.http.post(this.baseUrl, formData, { responseType: 'text' });
@@ -76,7 +81,7 @@ export class DemandeServiceService {
   }
 
   getDemande(): Observable<any> {
-    return this.http.get<any[]>(`${this.baseUrl}/demande`);
+    return this.http.get<[]>(`${this.baseUrl}/demande`);
   }
 
   getDemandeEncours(): Observable<SoumissionDto[]> {
@@ -169,6 +174,8 @@ export class DemandeServiceService {
   deleteProvince(id: number): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/provinces/${id}`);
   }
+
+
   envoyerDemande(formData: FormData): Observable<any> {
     const headers = new HttpHeaders(); // Pas besoin d'en-têtes supplémentaires pour FormData
     return this.http.post(

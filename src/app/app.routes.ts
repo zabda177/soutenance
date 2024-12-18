@@ -37,7 +37,7 @@ export const routes: Routes = [
 
 
   {
-    path: 'demande-details',
+    path: 'demande-details/:id',
     component: DemamndeDetailsComponent,
   },
 

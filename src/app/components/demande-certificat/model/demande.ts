@@ -32,8 +32,8 @@ export interface SoumissionDto {
   telephoneP1: String;
   telephoneP2: String;
   // propiete de demane
-  categorie: string;
   typeDemande: string;
+  typeDemandeur: string;
   statut: string;
   prix: number;
   numeroDemande: number;

@@ -38,7 +38,7 @@ export class PersonneMoraleComponent {
   typePersonneMorale: string = '';
 
   @Output() personneMoraleEvent: EventEmitter<any> = new EventEmitter<any>();
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   @Output() typeDemandeChange = new EventEmitter<string>();
 
