@@ -20,7 +20,7 @@ import {
   SoumissionDto,
 } from '../model/demande';
 
-import { catchError, Observable } from 'rxjs';
+import { catchError, map, Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
@@ -71,7 +71,7 @@ export class DemandeServiceService {
       `${this.baseUrl}/demande/demande${numeroDemande}/$codeDemande}`
     );
   }
-  getDemandeDetails(
+  getDemandeDetailsVerification(
     numeroDemande: number,
     codeDemande: string
   ): Observable<SoumissionDto> {
@@ -87,11 +87,14 @@ export class DemandeServiceService {
   getDemandeEncours(): Observable<SoumissionDto[]> {
     return this.http.get<SoumissionDto[]>(`${this.baseUrl}/demande/listSoumission`);
     console.log('URL appelée:', `${this.baseUrl}/encours`);
+  }
 
+  getPersonnePhysiqueById(id: number): Observable<SoumissionDto> {
+    return this.http.get<SoumissionDto>(`${this.baseUrl}/demande/personnePhysique${id}`);
   }
 
   getDemandeById(id: number): Observable<SoumissionDto> {
-    return this.http.get<SoumissionDto>(`${this.baseUrl}/demande/demandes${id}`);
+    return this.http.get<SoumissionDto>(`${this.baseUrl}/demande/demande-details/${id}`);
   }
   accepterDemande(id: number): Observable<any> {
     return this.http.put(`${this.baseUrl}/demande/${id}/accepte`, {});
@@ -185,12 +188,7 @@ export class DemandeServiceService {
     );
   }
 
-  /* envoieDemandeAgrement(formData: FormData): Observable<any> {
-    return this.http.post(
-      this.baseUrl + '/demande/demande-agrement',
-      formData
 
-) }*/
 
 
 

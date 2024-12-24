@@ -46,7 +46,7 @@ export class VerificationComponent {
 
   demandeServiceService: DemandeServiceService = inject(DemandeServiceService);
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     const numeroDemande =
@@ -55,7 +55,7 @@ export class VerificationComponent {
 
     if (numeroDemande !== null && codeDemande) {
       this.demandeServiceService
-        .getDemandeDetails(numeroDemande, codeDemande)
+        .getDemandeDetailsVerification(numeroDemande, codeDemande)
         .subscribe(
           (response) => {
             this.demandeSoumise = response;

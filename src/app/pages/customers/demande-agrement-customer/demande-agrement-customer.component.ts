@@ -16,6 +16,7 @@ import { CommonModule, NgTemplateOutlet } from '@angular/common';
 
 // Ajout de CommonModule pour les directives comme *ngIf
 import { CdkStepperModule } from '@angular/cdk/stepper';
+import { HttpErrorResponse } from '@angular/common/http';
 
 import { RouterModule } from '@angular/router';
 import { StepperComponent } from '../../../components/ui/stepper/stepper.component';
@@ -29,6 +30,8 @@ import { FichierConcessionComponent } from '../../../components/demande-certific
 import { DemandeServiceService } from '../../../components/demande-certificat/service/demande-service.service';
 import { HttpClientModule, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { v4 as uuidv4 } from 'uuid';
+import { response } from 'express';
+import { PieceJointeService } from '../../../components/demande-certificat/service/piece-jointe.service';
 @Component({
   selector: 'app-demande-agrement-custumer',
   templateUrl: './demande-agrement-customer.component.html',
@@ -62,8 +65,12 @@ export class DemandeAgrementCustomerComponent {
   demandeurData: any;
   demandesData: any;
   personneMoraleData: any;
+  selectedFiles: File[] = [];
 
-  constructor(private demandeServiceService: DemandeServiceService) { }
+  constructor(private demandeServiceService: DemandeServiceService,
+    private pieceJointeService: PieceJointeService
+  ) { }
+
 
 
 
@@ -125,48 +132,16 @@ export class DemandeAgrementCustomerComponent {
   /**
  * Génère un code composé de lettres majuscules et de chiffres.
  */
-  private generateCodeDemande(): string {
-    const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    const digits = '0123456789';
-    let code = '';
-
-    // Ajouter 4 lettres majuscules
-    for (let i = 0; i < 4; i++) {
-      code += letters.charAt(Math.floor(Math.random() * letters.length));
-    }
-
-    // Ajouter 4 chiffres
-    for (let i = 0; i < 4; i++) {
-      code += digits.charAt(Math.floor(Math.random() * digits.length));
-    }
-
-    return code;
-  }
-  // Genère des numéros uniquement
-  private generateNumericCode(length: number = 8): string {
-    const digits = '0123456789';
-    let code = '';
-
-    for (let i = 0; i < length; i++) {
-      code += digits.charAt(Math.floor(Math.random() * digits.length));
-    }
-
-    return code;
-  }
 
   onSubmit() {
+
     const formData = new FormData();
-    const numeroDemande = this.generateNumericCode();
-    const codeDemande = this.generateCodeDemande();
 
 
-    if (!this.demandesData) {
-      this.demandesData = {}; // Assurez-vous que demandesData est initialisé
-    }
-    this.demandesData.numeroDemande = numeroDemande;
-    this.demandesData.codeDemande = codeDemande;
-    // Ajouter les données de demande
+
+
     if (this.demandesData) {
+
       formData.append('typeDemandeur', this.typeDemandeur || '');
       formData.append('typeDemande', this.typeDemande || '');
       formData.append('prix', this.demandesData.prix ? this.demandesData.prix.toString() : '0');
@@ -179,10 +154,11 @@ export class DemandeAgrementCustomerComponent {
     // Ajouter les pièces jointes
     this.fichierData.forEach((file: any, index: number) => {
       if (file.fichier) {
-        formData.append(`pieceJointes[${index}].label`, file.label || '');
-        formData.append(`pieceJointes[${index}].fichier`, file.fichier);
+        formData.append(`piecesJointes[${index}].label`, file.label || '');
+        formData.append(`piecesJointes[${index}].fichier`, file.fichier);
       }
     });
+
 
     // Ajouter les données du demandeur
     if (this.typeDemandeur === 'morale' && this.personneMoraleData) {
@@ -208,30 +184,71 @@ export class DemandeAgrementCustomerComponent {
 
     }
 
-    console.log('Envoi du formulaire:', formData);
+    console.log('Envoi du formulaire:', formData.get("piecesJointes"));
 
     this.demandeServiceService
       .envoyerDemande(formData)
       .subscribe({
         next: (response) => {
-          console.log('Formulaire envoyé avec succès :', response);
+          //console.log('Formulaire envoyé avec succès :', response);
+          const demandeId = response.id; // ou response.demandeId selon votre structure
+
+          // Si vous avez des fichiers à uploader
+          if (this.selectedFiles && this.selectedFiles.length > 0) {
+            this.pieceJointeService.uploadFiles(this.selectedFiles, demandeId)
+              .subscribe({
+                next: (uploadResponse) => {
+                  console.log('Fichiers uploadés avec succès');
+                },
+                error: (uploadError) => {
+                  console.error('Erreur lors de l\'upload des fichiers:', uploadError);
+                }
+              });
+          }
+
+          error: (error: HttpErrorResponse) => {
+            console.error('Erreur lors de l\'envoi du formulaire:', error);
+          }
         },
         error: (error) => {
           console.error('Erreur lors de l\'envoi du formulaire:', error);
         }
       });
-    console.table(this.demandesData)
-    console.table(this.demandeurData)
-    console.table(this.personneMoraleData)
-    console.log('Soumission des données :', {
-      typeDemandeur: this.typeDemandeur,
-      typeDemande: this.typeDemande,
+
+
+    formData.forEach((value, key) => {
+      console.log(`${key}:`, value);
     });
+
+    //console.table(this.demandesData)
+    //console.table(this.demandeurData)
+    //console.table(this.personneMoraleData)
+    //console.table(this.fichierData)
+    //console.log('Soumission des données :', {
+    //  typeDemandeur: this.typeDemandeur,
+    //  typeDemande: this.typeDemande,
+    //});
   }
 
 
 
+  onUpload(files: File[]) {
+    const demandeId = 1; // Remplacez par l'ID réel de votre demande
 
-
-
+    this.pieceJointeService.uploadFiles(files, demandeId).subscribe({
+      next: (response) => {
+        console.log('Upload réussi:', response);
+        // Gérer le succès (ex: afficher un message, rafraîchir la liste, etc.)
+      },
+      error: (error) => {
+        console.error('Erreur lors de l\'upload:', error);
+        // Gérer l'erreur (ex: afficher un message d'erreur)
+      }
+    });
+  }
 }
+
+
+
+
+

@@ -1,3 +1,4 @@
+import { PersonneMoraleComponent } from './../../components/demande-certificat/personne-morale/personne-morale.component';
 import { DemandeRejeteComponent } from './demande-rejetees/demande-rejete.component';
 
 /**
@@ -21,8 +22,18 @@ import { DemandeComponent } from './../admin/demande/demande.component';
 import { DemandeAccepterDetailsComponent } from './demandeAcceptee/demande-accepter-details/demande-accepter-details.component';
 import { DemandeAccepterComponent } from './demandeAcceptee/demande-accepter/demande-accepter.component';
 import { DemamndeDetailsComponent } from './demamnde-details/demamnde-details.component';
+import { DemandeurComponent } from '../../components/demande-certificat/demandeur/demandeur.component';
+import { KeycloakAuthGuard } from 'keycloak-angular';
 export const CustomerRoute: Routes = [
 
+  {
+    path: 'personnePhysique',
+    loadComponent: () => import('../../components/demande-certificat/demandeur/demandeur.component').then((m) => DemandeurComponent)
+  },
+  {
+    path: 'personneMorale',
+    loadComponent: () => import('./../../components/demande-certificat/personne-morale/personne-morale.component').then((m) => m.PersonneMoraleComponent),
+  },
 
   {
     path: 'demande-details/:id',
@@ -67,7 +78,9 @@ export const CustomerRoute: Routes = [
       import('./dashboard/dashboard.component').then(
         (m) => m.DashboardComponent
       ),
+    canActivate: [KeycloakAuthGuard]
   },
+
   {
     path: 'demandes/acceptees',
     loadComponent: () =>

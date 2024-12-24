@@ -20,6 +20,8 @@ import {
 } from '../../../components/demande-certificat/model/demande';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DemandeServiceService } from '../../../components/demande-certificat/service/demande-service.service';
+import { DemandeurService } from '../../../components/demande-certificat/service/demandeur.service';
+import { PersonneMoraleService } from '../../../components/demande-certificat/service/personne-morale.service';
 
 @Component({
   selector: 'app-demamnde-details',
@@ -36,6 +38,8 @@ import { DemandeServiceService } from '../../../components/demande-certificat/se
 })
 export class DemamndeDetailsComponent {
   demandeDetail: any;
+  demandeurDetails: any;
+  personneMoraleDetails: any;
   idDemande: number | null = null;
 
   pieces: PieceJointeDto[] = [];
@@ -48,10 +52,12 @@ export class DemamndeDetailsComponent {
 
   constructor(
     private route: ActivatedRoute,
-    private demandeService: DemandeServiceService
+    private demandeServiceService: DemandeServiceService,
+    private demandeurService: DemandeurService,
+    private personneMoraleService: PersonneMoraleService,
   ) { }
   ngOnInit(): void {
-    // Utilisez `paramMap` pour récupérer le paramètre dynamique 'idDemande'
+    //  récupérer le paramètre dynamique 'idDemande'
     this.idDemande = +this.route.snapshot.paramMap.get('id')!;
     console.log('ID de la demande récupéré:', this.idDemande); // Pour déboguer
     if (this.idDemande) {
@@ -60,71 +66,73 @@ export class DemamndeDetailsComponent {
       console.error('ID de la demande manquant ou invalide.');
     }
   }
-  getDemandeDetails(idDemande: number): void {
-    this.demandeService.getDemandeById(idDemande).subscribe(
-      (data: SoumissionDto) => {
-        console.log('Détails de la demande récupérés :', data); // Ajoutez ce log pour vérifier la récupération des données
-        this.demandeDetail = data; // Stockez les détails de la demande
-      },
-      (error) => {
-        console.error(
-          'Erreur lors de la récupération des détails de la demande',
-          error
-        );
+  getDemandeDetails(demandeId: number): void {
+    this.demandeServiceService.getDemandeById(demandeId).subscribe((demande: any) => {
+      this.demandeDetail = demande; // Stocker la demande récupérée.
+
+      if (demande.typeDemandeur === 'personnePhysique') {
+        // Appeler le service ou composant pour récupérer les détails de la personne physique.
+        this.demandeurService.getDetailsById(demande.demandeurId).subscribe((details) => {
+          this.demandeurDetails = details;
+        });
+      } else if (demande.typeDemandeur === 'personneMorale') {
+        // Appeler le service ou composant pour récupérer les détails de la personne morale.
+        this.personneMoraleService.getDetailsById(demande.demandeurId).subscribe((details) => {
+          this.personneMoraleDetails = details;
+        });
       }
-    );
+    });
   }
 
-  // Méthode pour accepter la demande
-  accepterDemande(): void {
-    if (this.idDemande !== null) {
-      // Vérifie que idDemande n'est pas null
-      this.demandeService.accepterDemande(this.idDemande).subscribe({
-        next: (response) => {
-          alert('Demande acceptée avec succès');
-          this.router.navigate(['/customer/demandes/soumises']);
-          this.demandesSoumises = this.demandesSoumises.filter(
-            (demande) => demande.id !== this.idDemande
-          );
-        },
-        error: (err) => {
-          console.error("Erreur lors de l'acceptation de la demande", err);
-        },
-      });
-    } else {
-      console.error("L'ID de la demande est nul");
+  /*
+    // Méthode pour accepter la demande
+    accepterDemande(): void {
+      if (this.idDemande !== null) {
+        // Vérifie que idDemande n'est pas null
+        this.demandeServiceService.accepterDemande(this.idDemande).subscribe({
+          next: (response) => {
+            alert('Demande acceptée avec succès');
+            this.router.navigate(['/customer/demandes/soumises']);
+            this.demandesSoumises = this.demandesSoumises.filter(
+              (demande) => demande.id !== this.idDemande
+            );
+          },
+          error: (err) => {
+            console.error("Erreur lors de l'acceptation de la demande", err);
+          },
+        });
+      } else {
+        console.error("L'ID de la demande est nul");
+      }
     }
-  }
-  ouvrirRejectionModal() {
-    this.showRejectionModal = true;
-  }
-
-  rejeterDemande(): void {
-    if (this.idDemande !== null) {
-      this.demandeService.rejeterDemande(this.idDemande).subscribe({
-        next: (response) => {
-          alert('Demande rejetée avec succès');
-          this.router.navigate(['/customer/demandes/soumises']);
-          this.demandesSoumises = this.demandesSoumises.filter(
-            (demande) => demande.id !== this.idDemande
-          );
-        },
-        error: (err) => {
-          console.error('Erreur lors du rejet de la demande', err);
-        },
-      });
-    } else {
-      console.error("L'ID de la demande est nul");
+    ouvrirRejectionModal() {
+      this.showRejectionModal = true;
     }
-    this.showRejectionModal = false;
-    // Code pour rejeter la demande avec selectedRejectionReason
-    console.log('Motif de rejet:', this.selectedRejectionReason);
-  }
 
-  fermerRejectionModal() {
-    this.showRejectionModal = false;
-  }
+    rejeterDemande(): void {
+      if (this.idDemande !== null) {
+        this.demandeServiceService.rejeterDemande(this.idDemande).subscribe({
+          next: (response) => {
+            alert('Demande rejetée avec succès');
+            this.router.navigate(['/customer/demandes/soumises']);
+            this.demandesSoumises = this.demandesSoumises.filter(
+              (demande) => demande.id !== this.idDemande
+            );
+          },
+          error: (err) => {
+            console.error('Erreur lors du rejet de la demande', err);
+          },
+        });
+      } else {
+        console.error("L'ID de la demande est nul");
+      }
+      this.showRejectionModal = false;
+      // Code pour rejeter la demande avec selectedRejectionReason
+      console.log('Motif de rejet:', this.selectedRejectionReason);
+    }
+
+    fermerRejectionModal() {
+      this.showRejectionModal = false;
+    } */
 }
-/* function inject(Router: typeof Router): Router {
-  throw new Error('Function not implemented.');
-}*/
+

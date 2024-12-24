@@ -31,10 +31,19 @@ import { DemandeComponent } from './pages/admin/demande/demande.component';
 import { MenuComponent } from './components/ui/menu/menu.component';
 import { DemandeRejeteComponent } from './pages/customers/demande-rejetees/demande-rejete.component';
 import { DemamndeDetailsComponent } from './pages/customers/demamnde-details/demamnde-details.component';
+import { DemandeurComponent } from './components/demande-certificat/demandeur/demandeur.component';
+import { PersonneMoraleComponent } from './components/demande-certificat/personne-morale/personne-morale.component';
 export const routes: Routes = [
 
 
-
+  {
+    path: 'personnePhysique',
+    component: DemandeurComponent,
+  },
+  {
+    path: 'personneMorale',
+    component: PersonneMoraleComponent,
+  },
 
   {
     path: 'demande-details/:id',

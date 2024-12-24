@@ -46,7 +46,7 @@ export class FichierPermisComponent {
 
   @Output() permisPecheSubmitted: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor() {}
+  constructor() { }
 
   onFileSave() {
     if (this.demandeFile == null) {

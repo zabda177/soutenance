@@ -11,16 +11,49 @@
     * - Modification    :
 **/
 
+import { CommonModule } from '@angular/common';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { KeycloakEventType, KeycloakService } from 'keycloak-angular';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [RouterModule],
+  imports: [RouterModule,
+    HttpClientModule,
+    CommonModule
+  ],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.css'
+  styleUrl: './header.component.css',
 })
 export class HeaderComponent {
+
+  title = 'keycloak-angular-example';
+  keycloakService: KeycloakService;
+  statusPanel: string = '';
+  httpClient: HttpClient;
+
+  constructor(keycloakService: KeycloakService, httpClient: HttpClient) {
+    this.keycloakService = keycloakService;
+    this.httpClient = httpClient;
+
+    keycloakService.keycloakEvents$.subscribe({
+      next(event) {
+        if (event.type == KeycloakEventType.OnTokenExpired) {
+          keycloakService.updateToken(20);
+        }
+      }
+    });
+  }
+
+  public login(): void {
+
+    this.keycloakService.login();
+
+  }
+  logout() {
+    this.keycloakService.logout();
+  }
 
 }

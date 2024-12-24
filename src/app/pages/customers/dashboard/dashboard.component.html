@@ -1,4 +1,4 @@
-<div class="dashboard">
+<!-- <div class="dashboard">
   <div class="row">
     <div class="col-2">
       <app-menu></app-menu>
@@ -7,6 +7,42 @@
       <br /><br /><br />
       <h1>   Statistiques </h1>
       <br /><br />
+      <div class="stats">
+        <div class="stat">
+          <h3>Demandes soumises</h3>
+          <p>{{ stats?.demandeEncours }}</p>
+        </div>
+        <div class="stat">
+          <h3>Demandes acceptées</h3>
+          <p>{{ stats?.demandeAccepte }}</p>
+        </div>
+        <div class="stat">
+          <h3>Demandes validées</h3>
+          <p>{{ stats?.demandeValide }}</p>
+        </div>
+        <div class="stat">
+          <h3>Demandes rejetées</h3>
+          <p>{{ stats?.demandeRejete }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+ -->
+
+ <div class="dashboard">
+  <div class="row">
+    <div class="col-2">
+      <app-menu></app-menu>
+    </div>
+    <div class="col-10">
+      <div class="header d-flex justify-content-between align-items-center">
+        <h1>Statistiques</h1>
+        <div>
+          <span class="me-3">Bienvenue {{ username }}</span>
+          <button class="btn btn-outline-danger" (click)="logout()">Déconnexion</button>
+        </div>
+      </div>
       <div class="stats">
         <div class="stat">
           <h3>Demandes soumises</h3>

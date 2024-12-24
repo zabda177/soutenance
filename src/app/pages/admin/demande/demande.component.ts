@@ -21,7 +21,7 @@ import { DemandeAgrementCustomerComponent } from '../../customers/demande-agreme
 import { FichierComponent } from '../../../components/demande-certificat/fichier/fichier.component';
 import { SoumissionDto } from '../../../components/demande-certificat/model/demande';
 import { DemandeServiceService } from '../../../components/demande-certificat/service/demande-service.service';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-demande',
@@ -44,9 +44,8 @@ import { Router } from '@angular/router';
 })
 export class DemandeComponent implements OnInit {
   demandes: SoumissionDto[] = [];
-
   constructor(
-    private demandeServiceServie: DemandeServiceService,
+    private demandeServiceService: DemandeServiceService,
     private router: Router
   ) { }
 
@@ -55,7 +54,7 @@ export class DemandeComponent implements OnInit {
   }
 
   getDemandesEncours(): void {
-    this.demandeServiceServie.getDemandeEncours().subscribe(
+    this.demandeServiceService.getDemandeEncours().subscribe(
       (data: SoumissionDto[]) => {
         this.demandes = data;
         console.log('Demandes récupérées:', this.demandes);
@@ -69,20 +68,27 @@ export class DemandeComponent implements OnInit {
   afficherDetails(demande: any): void {
     console.log('Demande:', demande); // Inspectez l'objet pour vérifier l'ID
     if (demande && demande.id) {
-      // Utilisez la propriété appropriée pour l'ID
-      this.demandeServiceServie
-        .getDemandeById(demande.id)
-        .subscribe((response) => {
-          console.log('Liste', response);
-        });
-      this.router.navigate(['/customer/demande-details', demande.id]);
-      console.log(
-        'Tentative de redirection vers les détails de la demande avec ID:',
-        demande.id
-      );
+      this.demandeServiceService.getDemandeById(demande.id).subscribe({
+        next: (response) => {
+          console.log('Détails de la demande récupérés :', response);
+
+          // Rediriger vers la page de détails avec l'ID
+          this.router.navigate(['/customers/demande-details/', demande.id]);
+          console.log(
+            'Tentative de redirection vers les détails de la demande avec ID :',
+            demande.id
+          );
+        },
+        error: (err) => {
+          console.error(
+            'Erreur lors de la récupération des détails de la demande :',
+            err
+          );
+        },
+      });
     } else {
       console.error('ID de la demande manquant ou indéfini.', demande);
     }
   }
-
 }
+
