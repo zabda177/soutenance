@@ -1,4 +1,4 @@
-<!--<div class="row">
+<!--  -<div class="row">
   <div class="col-2">
     <app-menu></app-menu>
   </div>
@@ -30,6 +30,7 @@
             <label>Telephone 2::</label>
             <span>{{ demande.telephone }}</span>
           </div>
+
           <h3>Documents Fournis</h3>
           <table class="table">
             <thead>
@@ -137,12 +138,17 @@
     </div>
   </div>
 </div>
--->
+
+ -->
+
+
+
+
 <div class="col-10">
   <div *ngIf="demandeDetail">
     <div class="detail-container">
       <h2>Détails de la Demande</h2>
-      <div *ngIf="demandeDetail.typeDemandeur === 'personnePhysique'">
+      <div *ngIf="demandeDetail.typeDemandeur === 'physique'">
         <h3>Informations Personne Physique</h3>
         <div class="detail-item">
           <label>Nom:</label>
@@ -166,7 +172,7 @@
         </div>
       </div>
 
-      <div *ngIf="demandeDetail.typeDemandeur === 'personneMorale'">
+      <div *ngIf="demandeDetail.typeDemandeur === 'morale'">
         <h3>Informations Personne Morale</h3>
         <div class="detail-item">
           <label>IFU:</label>
@@ -192,7 +198,111 @@
           <label>Téléphone:</label>
           <span>{{ personneMoraleDetails?.telephoneP1 }}</span>
         </div>
+
+         <h3>Documents Fournis</h3>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Libellé</th>
+                <th>Fichier</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let piece of pieces">
+                <td>{{ piece.libelle }}</td>
+                <td>
+                  <a [href]="piece.fichier" target="_blank">Télécharger</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="row">
+          <div class="mb-3 col-md-4">
+            <button
+              class="btn btn-success"
+              type="button"
+              (click)="accepterDemande()"
+            >
+              Accepter</button
+            ><br /><br /><br /><br />
+          </div>
+
+      <!--   Bouton Rejeter avec ouverture de modal -->
+          <div class="mb-3 col-md-4">
+            <button
+              class="btn btn-danger"
+              type="button"
+              data-bs-toggle="modal"
+              data-bs-target="#rejectionModal"
+            >
+              Rejeter</button
+            ><br /><br /><br /><br />
+          </div>
+       <!--    // Modal de rejet -->
+          <div
+            class="modal fade"
+            id="rejectionModal"
+            tabindex="-1"
+            aria-labelledby="rejectionModalLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="rejectionModalLabel">
+                    Motif de Rejet
+                  </h5>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Fermer"
+                  ></button>
+                </div>
+                <div class="modal-body">
+                  <label for="rejection-reason"
+                    >Sélectionnez un Motif de Rejet:</label
+                  >
+                  <select
+                    id="rejection-reason"
+                    [(ngModel)]="selectedRejectionReason"
+                    class="form-select"
+                  >
+                    <option value="" disabled selected>
+                      Choisissez un motif...
+                    </option>
+                    <option
+                      *ngFor="let reason of rejectionReasons"
+                      [value]="reason"
+                    >
+                      {{ reason }}
+                    </option>
+                  </select>
+                </div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                  >
+                    Annuler
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-danger"
+                    (click)="rejeterDemande()"
+                    data-bs-dismiss="modal"
+                  >
+                    Confirmer le rejet
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br /><br />
+        </div>
       </div>
     </div>
   </div>
-</div>
+

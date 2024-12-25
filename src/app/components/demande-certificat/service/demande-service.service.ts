@@ -10,6 +10,7 @@
  * - Author          : ASUS
  * - Modification    :
  **/
+
 import { Injectable } from '@angular/core';
 import { v4 as uuidv4 } from 'uuid';
 import {
@@ -20,7 +21,7 @@ import {
   SoumissionDto,
 } from '../model/demande';
 
-import { catchError, map, Observable } from 'rxjs';
+import { catchError, map, Observable, timeout } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
@@ -93,8 +94,22 @@ export class DemandeServiceService {
     return this.http.get<SoumissionDto>(`${this.baseUrl}/demande/personnePhysique${id}`);
   }
 
-  getDemandeById(id: number): Observable<SoumissionDto> {
-    return this.http.get<SoumissionDto>(`${this.baseUrl}/demande/demande-details/${id}`);
+  /*  getDemandeById(id: number): Observable<SoumissionDto> {
+     return this.http.get<SoumissionDto>(`${this.baseUrl}/demande/demande-details/${id}`);
+   } */
+  getDemandeById(id: number): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/demande/demande-details/${id}`)
+      .pipe(
+        timeout(30000), // 30 secondes de timeout
+        catchError(error => {
+          console.error('Erreur lors de la récupération des détails:', error);
+          throw error;
+        }),
+        map(response => {
+          console.log('Réponse du serveur:', response);
+          return response;
+        })
+      );
   }
   accepterDemande(id: number): Observable<any> {
     return this.http.put(`${this.baseUrl}/demande/${id}/accepte`, {});

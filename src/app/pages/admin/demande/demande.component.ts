@@ -22,7 +22,8 @@ import { FichierComponent } from '../../../components/demande-certificat/fichier
 import { SoumissionDto } from '../../../components/demande-certificat/model/demande';
 import { DemandeServiceService } from '../../../components/demande-certificat/service/demande-service.service';
 import { Router, RouterModule } from '@angular/router';
-
+import { catchError, timeout, map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-demande',
   standalone: true,

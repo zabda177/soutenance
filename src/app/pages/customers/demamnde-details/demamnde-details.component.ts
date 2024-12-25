@@ -69,13 +69,14 @@ export class DemamndeDetailsComponent {
   getDemandeDetails(demandeId: number): void {
     this.demandeServiceService.getDemandeById(demandeId).subscribe((demande: any) => {
       this.demandeDetail = demande; // Stocker la demande récupérée.
-
-      if (demande.typeDemandeur === 'personnePhysique') {
+      this.demandeurDetails = demande.nomResponsable;
+      this.pieces = demande.pieces || [];
+      if (demande.typeDemandeur === 'physique') {
         // Appeler le service ou composant pour récupérer les détails de la personne physique.
         this.demandeurService.getDetailsById(demande.demandeurId).subscribe((details) => {
           this.demandeurDetails = details;
         });
-      } else if (demande.typeDemandeur === 'personneMorale') {
+      } else if (demande.typeDemandeur === 'morale') {
         // Appeler le service ou composant pour récupérer les détails de la personne morale.
         this.personneMoraleService.getDetailsById(demande.demandeurId).subscribe((details) => {
           this.personneMoraleDetails = details;
@@ -84,55 +85,55 @@ export class DemamndeDetailsComponent {
     });
   }
 
-  /*
-    // Méthode pour accepter la demande
-    accepterDemande(): void {
-      if (this.idDemande !== null) {
-        // Vérifie que idDemande n'est pas null
-        this.demandeServiceService.accepterDemande(this.idDemande).subscribe({
-          next: (response) => {
-            alert('Demande acceptée avec succès');
-            this.router.navigate(['/customer/demandes/soumises']);
-            this.demandesSoumises = this.demandesSoumises.filter(
-              (demande) => demande.id !== this.idDemande
-            );
-          },
-          error: (err) => {
-            console.error("Erreur lors de l'acceptation de la demande", err);
-          },
-        });
-      } else {
-        console.error("L'ID de la demande est nul");
-      }
-    }
-    ouvrirRejectionModal() {
-      this.showRejectionModal = true;
-    }
 
-    rejeterDemande(): void {
-      if (this.idDemande !== null) {
-        this.demandeServiceService.rejeterDemande(this.idDemande).subscribe({
-          next: (response) => {
-            alert('Demande rejetée avec succès');
-            this.router.navigate(['/customer/demandes/soumises']);
-            this.demandesSoumises = this.demandesSoumises.filter(
-              (demande) => demande.id !== this.idDemande
-            );
-          },
-          error: (err) => {
-            console.error('Erreur lors du rejet de la demande', err);
-          },
-        });
-      } else {
-        console.error("L'ID de la demande est nul");
-      }
-      this.showRejectionModal = false;
-      // Code pour rejeter la demande avec selectedRejectionReason
-      console.log('Motif de rejet:', this.selectedRejectionReason);
+  // Méthode pour accepter la demande
+  accepterDemande(): void {
+    if (this.idDemande !== null) {
+      // Vérifie que idDemande n'est pas null
+      this.demandeServiceService.accepterDemande(this.idDemande).subscribe({
+        next: (response) => {
+          alert('Demande acceptée avec succès');
+          this.router.navigate(['/customer/demandes/soumises']);
+          this.demandesSoumises = this.demandesSoumises.filter(
+            (demande) => demande.id !== this.idDemande
+          );
+        },
+        error: (err) => {
+          console.error("Erreur lors de l'acceptation de la demande", err);
+        },
+      });
+    } else {
+      console.error("L'ID de la demande est nul");
     }
+  }
+  ouvrirRejectionModal() {
+    this.showRejectionModal = true;
+  }
 
-    fermerRejectionModal() {
-      this.showRejectionModal = false;
-    } */
+  rejeterDemande(): void {
+    if (this.idDemande !== null) {
+      this.demandeServiceService.rejeterDemande(this.idDemande).subscribe({
+        next: (response) => {
+          alert('Demande rejetée avec succès');
+          this.router.navigate(['/customer/demandes/soumises']);
+          this.demandesSoumises = this.demandesSoumises.filter(
+            (demande) => demande.id !== this.idDemande
+          );
+        },
+        error: (err) => {
+          console.error('Erreur lors du rejet de la demande', err);
+        },
+      });
+    } else {
+      console.error("L'ID de la demande est nul");
+    }
+    this.showRejectionModal = false;
+    // Code pour rejeter la demande avec selectedRejectionReason
+    console.log('Motif de rejet:', this.selectedRejectionReason);
+  }
+
+  fermerRejectionModal() {
+    this.showRejectionModal = false;
+  }
 }
 
